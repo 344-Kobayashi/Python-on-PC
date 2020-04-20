@@ -1,6 +1,6 @@
 # ノートPCでPython環境構築
 
-## 1. はじめに
+## はじめに
 
 このページはWindows 8.1および10，macOS 10.15 (catalina), Linux (ubuntu 18.04)へのPythonと関連モジュールをインストールした経験メモです．**このページに記載された方法を試して何らかの不具合が生じても本ページ管理者は何ら責任は持ちません**．pythonやlinuxのインストールは**自己責任**で行って下さい．</br>
 
@@ -10,7 +10,7 @@ PythonはWindows, macOS, Linuxに加えてiOS，アンドロイドでも利用�
 
 Pythonは複数のバージョンやインストールされたモジュール数が異なる環境を使うことが多いようです．本ページでは複数バージョンのPython環境の構築が目的の一つであるため，[pythonの本家本元サイト](http://www.python.org)からダウンロードする方法は用いていません．</br></br>
 
-## 2. Windows
+## Windows
 
 WindowsへのPython環境構築には[Anaconda](https://www.anaconda.com/)と[WinPython](http://winpython.github.io/)を試しましたが，現在はWinPythonのみを使っています．Anacondaを使わなくなった理由は，インストールされているGPL版pyQtをCommercial版pyQtに置き換えられなかったためです．（数年前の話．Anadondaパッケージにはpython3.dllが含まれていないためでした）</br></br>
 
@@ -20,7 +20,7 @@ WinPythonの場合，プレインストールされているモジュールの�
 
 その他，WinPythonの場合，仮想環境の構築が容易でPath設定をしなくとも使用できることが魅力です．</br></br>
 
-#### 2. 1. WinPythonのインストール方法
+####  WinPythonのインストール方法
 
 [WinPythonホームページ](http://winpython.github.io/)からダウンロードサイトに移動し，使いたいバージョンのPythonに相当するWinPython####.exeをダウンロードし適当なフォルダー保存します．####部分には32，64ビット，Pythonバージョン番号などが付きます．あとは保存したWinPython####.exeをダブルクリックして好きなフォルダーへ展開するだけです．</br></br>
 
@@ -28,7 +28,7 @@ WinPythonホームページにも記載されていますが，WinPython利用�
 
 ファイル名末尾に"Zero"が付いているものは最小限のモジュールとIDEのみのバージョンです．自分で様々なモジュールをインストールするのが面倒であればファイルサイズが大きいものを選択すればよいです．</br></br>
 
-#### 2. 2. WinPython利用法
+#### WinPython利用法
 
 Winpython64-3.8.1.0cod.exeをダブルクリックしてできるWPy64-3810フォルダー内ファイル構成です．</br>
 
@@ -50,12 +50,12 @@ WindowsシステムにPath設定しなくともPyzo，Spyder，VSCode，JupyterN
 
 グローバル環境にするとスタートメニュー→Windowsシステムツール→コマンドプロンプトまたはスタートメニュー→Windows Powershellからpipコマンドを使えます（たぶん）</br></br>
 
-#### 2. 3. その他，必要なモジュールのインストール
+#### その他，必要なモジュールのインストール
 
 本管理者非線形最小自乗法を使うデータ解析とグラフ表示を行うため，Numpy, Scipy, lmfit, Matplotlibを使います．これらのモジュールはフルバージョンのWinPythonであればプレインストールされています．特にnumpyとscipyはIntel MKLビルド版とサービス満天です．Zero版の場合は自身でインストールしてください．pipコマンドでインストール可能です．</br></br>
 
 
-#### 2. 4. wxPythonインストール
+#### wxPythonインストール
 
 wxPythonモジュールはWinPythonにプレインストールされていません．wxPythonを使う場合は[wxPythonホームページ](https://www.wxpython.org/)のダウンロードページでサポートするPythonバージョンを確認し，使用するPythonバージョンを決めましょう．最新バージョンのPythonはサポートされていないことがあります．</br></br>
 
@@ -71,11 +71,11 @@ wxPythonのインストールはWinPython Command Prompt，WinPython Powershell 
 
 
 
-## 3. mac OS
+## mac OS
 
 mac OSはシステムでPythonを使っています．したがってOSにインストールされているPythonとは異なる仮想環境下でPythonをインストールする必要があります．</br>
 
-仮想環境下へのPythonインストールにはAnacondaあるいはHomebrew + pyenvを用いた方法などがあるようです．本ページ管理者はWIndowsの場合と同様にpyQtをcommercial版に置き換えたかったこと，複数バージョンのPython環境を構築したかったことからHomebrew + pyenvを用いた環境構築を採用しました．</br></br>
+仮想環境下へのPythonインストールにはAnacondaあるいはHomebrew + pyenvを用いた方法などがあるようです．本ページ管理者はWIndowsの場合と同様にpyQtをcommercial版に置き換えたかったこと，複数バージョンのPython環境を構築したかったことからHomebrew + pyenvを用いた環境構築を採用しました．用いたのは2017年製MacBook Airです．</br></br>
 
 
 
@@ -171,13 +171,13 @@ spyder3&
 
 **補足**：PYTHON_CONFIGURE_OPTS="--enable-framework"とPYTHON_CONFIGURE_OPTS="--enable-shared"については「[PYTHONビルド時の--enable-frameworkと--enable-sharedの違い](https://abrakatabura.hatenablog.com/entry/2017/07/08/130407)」に解説があります．</br>
 
-**おまけ**：機械学習用モジュールの中にはNumpy, ScipyでIntel MKL (Math Kernel Library)を使う設定が必要なものもあります．mac OSの場合，自身でMKLを導入してNumpy, Scipyをビルドしなおすのは大変です．この様な用途の場合は素直にAnacondaを使いましょう．Anacondaにはnumpy+mkl，scipy+mklがプレインストールされているようです．Anacondaパッケージはpyenvからインストールできます．</br></br>
+**おまけ**：機械学習用モジュールの中にはNumpyでIntel MKL (Math Kernel Library)を使う設定が必要なものもあります．mac OSの場合，自身でMKLを導入してNumpy, Scipyをビルドしなおすのは大変です．この様な用途の場合は素直にAnacondaを使いましょう．Anacondaにはnumpy+mkl，scipy+mklがプレインストールされているようです．Anacondaパッケージはpyenvからインストールできます．</br></br>
 
 
 
-**MKL numpyインストール法**
+**MKL Numpyインストール法**
 
-Anacondaを使わない場合は[ここ](https://qiita.com/Ishotihadus/items/f7d82a1f3a3ca6900bf7)を参照してインストール可．ただしMKL Numpyのみ成功</br>
+Anacondaを使わない場合は[ここ](https://qiita.com/Ishotihadus/items/f7d82a1f3a3ca6900bf7)を参照してインストールできました．ただしMKL Numpyのみ成功</br>
 
 (1) IntelからMKLをダウンロードしインストール．インストールパスはデフォルトの/opt/intelのまま</br>
 
@@ -210,18 +210,33 @@ MKL Numpyのインストールに成功すればfacebookで開発されたpyTorc
 
 
 
-## 4. Linux編
+## Linux編
 
 **注意**：Linux導入は敷居が高いです．またCドライブ内の情報が消去されてしまう可能性もありますのでサブマシンへの導入がよいと思います．Linuxは古いPCでも軽快に動きますの．中古PC，サポートが終わってしまったOSがプレインストールされているPCに導入することもできます．（例えば[こちら](http://www.gadgets-today.net/?p=3591)とか，[こちら](http://lioon.net/lubuntu-the-best-for-letsnote)とか，[こちら](https://note.com/you_kyan/n/n101d8a580286)のページ）</br>
 
-#### 4.1. Distribution選び
+#### Distribution選択
 
-Linuxには様々なdistribution版があり，どれを選べばよいか？から挫けそうです．Linuxのdistributionについては[こちら](https://ja.wikipedia.org/wiki/Linux%E3%83%87%E3%82%A3%E3%82%B9%E3%83%88%E3%83%AA%E3%83%93%E3%83%A5%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3)．その他，[【2020年】初心者にオススメなLinuxディストリビューション](http://note.kurodigi.com/linux-distro-2020/)．本管理者はwxPythonを使える環境構築をしたかったので，[wxPythonのホームページ](https://www.wxpython.org/)を確認したところ，[wxPython Downloads](https://www.wxpython.org/pages/downloads/)にLinuxの注意が書かれています．さらに[wxPython Extras linuxのgtk3フォルダ](https://extras.wxpython.org/wxPython4/extras/linux/gtk3/)を確認するとcentos-7, debian-8, 9, fedra-24~28, ununtu-14.04-18.04ならインストールできそうです．
+Linuxには様々なdistribution版があり，どれを選べばよいか？から既に挫けそうです．Linuxのdistributionについては[こちら](https://ja.wikipedia.org/wiki/Linux%E3%83%87%E3%82%A3%E3%82%B9%E3%83%88%E3%83%AA%E3%83%93%E3%83%A5%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3)．その他，[【2020年】初心者にオススメなLinuxディストリビューション](http://note.kurodigi.com/linux-distro-2020/)．本管理者はwxPythonを使える環境が欲しかったので，まず[wxPythonのホームページ](https://www.wxpython.org/)を確認しました．[wxPython Downloads](https://www.wxpython.org/pages/downloads/)にLinuxの注意が書かれています．さらに[wxPython Extras linuxのgtk3フォルダ](https://extras.wxpython.org/wxPython4/extras/linux/gtk3/)を確認するとcentos-7, debian-8, 9, fedra-24~28, ununtu-14.04-18.04ならインストールできそうだと思われます．
 
-![](wxPython_extra_linux.gif)
+![](C:\Python備忘録\wxPython_extra_linux.gif)
 
-ubuntuには[日本語Remix](https://www.ubuntulinux.jp/home)版がありサイト情報も多いことから私のような初心者でも何とかなりそうです．そこでubuntuのデスクトップ版で長期サポートバージョンのUbuntu 18.04.3 LTSを選択しました．導入を試みたPCはWIndows 8.1がインストールされたPanasonic製Let's Note CF-MX3です．</br></br>
+ubuntuには[日本語Remix](https://www.ubuntulinux.jp/home)版がありサイト情報も多いことから私のような初心者でも何とかなりそう．そこでubuntuのデスクトップ版で長期サポートバージョンのUbuntu 18.04.3 LTSを選択しました（長期と言っても2023年まで．この分野の流れの速さを感じます）．導入を試みたPCはWIndows 8.1がインストールされたPanasonic製Let's Note CF-MX3です．</br></br>
 
+
+
+#### ライブDVD作成とテスト起動
+
+ubuntuには[日本語Remix](https://www.ubuntulinux.jp/home)版サイトから[ubuntu-ja-18.04.3-desktop-amd64.iso（ISOイメージ）](http://cdimage.ubuntulinux.jp/releases/18.04.3/ubuntu-ja-18.04.3-desktop-amd64.iso)をダウンロード，DVDに焼いて起動ディスク（ライブDVD）を作成します．[Ubuntu 18.04 その89 - UbuntuのライブDVDを作成するには（Windows編）](https://kledgeb.blogspot.com/2018/04/ubuntu-1804-89-ubuntudvdwindows.html)などを参考にしました．ubuntuをライブDVDから起動するとインストールしなくてもubuntuを試用することができます．（[Linux_OS　Ubuntuの試用、ライブＤＶＤ起動のすすめ](https://blog.goo.ne.jp/goosyun/e/5ae3456c18121843857be0b51c5d1e3c)）</br>
+
+[UEFIモードでUbuntuをインストールする方法（Ubuntu 16.04 LTS）](https://www.archlinux.site/2018/02/uefiubuntuubuntu-1604-lts.html) を頼りに，ライブDVDから起動するための準備としてWindowsの「コントロールパネル」→「電源オプション」→「システム設定」でWindowsの高速起動のチェックを外します．（[windows8のPCにUbuntuをインストールしデュアルブート環境で使う](https://smartgoods.me/2014/07/windows8_ubuntu_dualboot/)も参照）．その後，windowsを再起動し，PCメーカーのロゴが表示されているタイミングでBios設定画面を呼び出し（今回のPCではF2キー連打で表示），メニューから光学ドライブ電源を「オン」，起動メニューにあるUEFI起動は初期設定の「有効」にしたまま，UEFI優先度でハードディスクUEFI起動を「無効」，光学ディスクドライブUEFI起動を「有効」に変更，セキュリティーメニューの「セキュアブート」にある「セキュアブート制御」を「無効」に変更し，ライブDVDをセットして再起動しました．が，この設定では起動途中でgrubプロンプトが表示されてとまってしまい，[Ubuntu 18.04 LTSインストールガイド【スクリーンショットつき解説】](https://linuxfan.info/ubuntu-18-04-install-guide)ページのようには進まず挫折  ○|￣|＿</br>
+
+今度はBios設定でUEFI起動を「無効」にし，光学ドライブの起動優先順位をハードディスクよりも先に変更したところ[Ubuntu 18.04 LTSインストールガイド【スクリーンショットつき解説】](https://linuxfan.info/ubuntu-18-04-install-guide)ページの通り試用画面が表示されました．この設定でインストールできそうなことを確認し，次はWindows Cドライブのパーティション切り変更を行いました．</br>
+
+
+
+#### デュアルブート化へ．．．その１（不満足編）
+
+Windows 8.1のサポートは継続されていることからWindows 8.1とubuntu-Desktop 18.04 LTSのデュアルブート化を目指します．UbuntuをインストールするにはCドライブのパーティションサイズを変更する必要があります．当然，Cドライブにある情報が消えるリスクも高いので必ず起動ディスク作成とバックアップを事前に行って下さい．さらにCドライブのプロパティーから「このディスクのクリーンアップ」を実行しデフラグします．「[Windows PCでOSをデュアルブートするときの覚え書き](https://www.cottpic.com/2019/01/dualboot-on-windows.html)」にあるように[MiniTool Partition Wizard Free Edition](https://www.partitionwizard.com/free-partition-manager.html)などのツールを使うとCドライブの情報を残したままパーティションサイズを変えられる様です．ただし設定を間違えるとウンも言わさず工場出荷状態に戻されます．工場出荷状態に戻っても良い場合はWindowsの「ディスクの管理」マネージャーでサイズ変更しても構いません．（もちろんバックアップと起動ディスクは必須です）
 
 
 
