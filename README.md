@@ -159,7 +159,7 @@ spyder3&
 
 **補足**：PYTHON_CONFIGURE_OPTS="--enable-framework"とPYTHON_CONFIGURE_OPTS="--enable-shared"については「[PYTHONビルド時の--enable-frameworkと--enable-sharedの違い](https://abrakatabura.hatenablog.com/entry/2017/07/08/130407)」に解説があります．</br>
 
-**おまけ**：機械学習用モジュールの中にはNumpyでIntel MKL (Math Kernel Library)を使う設定が必要なものもあります．mac OSの場合，自身でMKLを導入してNumpy, Scipyをビルドしなおすのは大変です．この様な用途の場合は素直にAnacondaを使いましょう．Anacondaにはnumpy+mkl，scipy+mklがプレインストールされているようです．Anacondaパッケージはpyenvからインストールできます．</br>
+**おまけ**：NumpyでIntel MKL (Math Kernel Library)を使うと計算が速くなるモジュールもあります．mac OSの場合，自身でMKLを導入してNumpy, Scipyをビルドしなおすのは大変です．この様な用途の場合は素直にAnacondaを使いましょう．Anacondaにはnumpy+mkl，scipy+mklがプレインストールされているようです．Anacondaパッケージはpyenvからインストールできます．</br>
 
 **MKL Numpyインストール法**
 
@@ -212,7 +212,7 @@ ubuntuには[日本語Remix](https://www.ubuntulinux.jp/home)版がありサイ�
 
 ubuntuには[日本語Remix](https://www.ubuntulinux.jp/home)版サイトから[ubuntu-ja-18.04.3-desktop-amd64.iso（ISOイメージ）](http://cdimage.ubuntulinux.jp/releases/18.04.3/ubuntu-ja-18.04.3-desktop-amd64.iso)をダウンロード，DVDに焼いて起動ディスク（ライブDVD）を作成します．[Ubuntu 18.04 その89 - UbuntuのライブDVDを作成するには（Windows編）](https://kledgeb.blogspot.com/2018/04/ubuntu-1804-89-ubuntudvdwindows.html)などを参考にしました．ubuntuをライブDVDから起動するとインストールしなくてもubuntuを試用することができます．（[Linux_OS　Ubuntuの試用、ライブＤＶＤ起動のすすめ](https://blog.goo.ne.jp/goosyun/e/5ae3456c18121843857be0b51c5d1e3c)）</br>
 
-[UEFIモードでUbuntuをインストールする方法（Ubuntu 16.04 LTS）](https://www.archlinux.site/2018/02/uefiubuntuubuntu-1604-lts.html) を頼りに，ライブDVDから起動するための準備としてWindowsの「コントロールパネル」→「電源オプション」→「システム設定」でWindowsの高速起動のチェックを外します．（[windows8のPCにUbuntuをインストールしデュアルブート環境で使う](https://smartgoods.me/2014/07/windows8_ubuntu_dualboot/)も参照）．その後，windowsを再起動し，PCメーカーのロゴが表示されているタイミングでBios設定画面を呼び出し（今回のPCではF2キー連打で表示），メニューから光学ドライブ電源を「オン」，起動メニューにあるUEFI起動は初期設定の「有効」にしたまま，UEFI優先度でハードディスクUEFI起動を「無効」，光学ディスクドライブUEFI起動を「有効」に変更，セキュリティーメニューの「セキュアブート」にある「セキュアブート制御」を「無効」に変更し，ライブDVDをセットして再起動しました．が，この設定では起動途中でgrubプロンプトが表示されてとまってしまい，[Ubuntu 18.04 LTSインストールガイド【スクリーンショットつき解説】](https://linuxfan.info/ubuntu-18-04-install-guide)ページのようには進まず挫折  ○|￣|＿　</br>
+[UEFIモードでUbuntuをインストールする方法（Ubuntu 16.04 LTS）](https://www.archlinux.site/2018/02/uefiubuntuubuntu-1604-lts.html) を頼りに，ライブDVDから起動するための準備としてWindowsの「コントロールパネル」→「電源オプション」→「電源ボタンの動作を設定する（システム設定）」で**高速起動のチェックを外します**．（[windows8のPCにUbuntuをインストールしデュアルブート環境で使う](https://smartgoods.me/2014/07/windows8_ubuntu_dualboot/)も参照）．その後，windowsを再起動し，PCメーカーのロゴが表示されているタイミングでBios設定画面を呼び出し（今回のPCではF2キー連打で表示），メニューから光学ドライブ電源を「オン」，起動メニューにあるUEFI起動は初期設定の「有効」にしたまま，UEFI優先度でハードディスクUEFI起動を「無効」，光学ディスクドライブUEFI起動を「有効」に変更，セキュリティーメニューの「セキュアブート」にある「セキュアブート制御」を「無効」に変更し，ライブDVDをセットして再起動しました．が，この設定では起動途中でgrubプロンプトが表示されてとまってしまい，[Ubuntu 18.04 LTSインストールガイド【スクリーンショットつき解説】](https://linuxfan.info/ubuntu-18-04-install-guide)ページのようには進まず挫折  ○|￣|＿　</br>
 
 気を取り直して今度はBios設定でUEFI起動を「無効」にし，光学ドライブの起動優先順位をハードディスクよりも先に変更したところ[Ubuntu 18.04 LTSインストールガイド【スクリーンショットつき解説】](https://linuxfan.info/ubuntu-18-04-install-guide)ページの通り試用画面が表示されました．この設定でインストールできそうなことを確認し，次はWindows Cドライブのパーティション切り変更を行います．</br>
 
@@ -220,4 +220,18 @@ ubuntuには[日本語Remix](https://www.ubuntulinux.jp/home)版サイトから[
 
 Windows 8.1のサポートは継続されていることからWindows 8.1とubuntu-Desktop 18.04 LTSのデュアルブート化を目指します．UbuntuをインストールするにはCドライブのパーティションサイズを変更する必要があります．当然，Cドライブにある情報が消えるリスクも高いので必ず起動ディスク作成とバックアップを事前に行って下さい．さらにCドライブのプロパティーから「このディスクのクリーンアップ」を実行しデフラグします．「[Windows PCでOSをデュアルブートするときの覚え書き](https://www.cottpic.com/2019/01/dualboot-on-windows.html)」にあるように[MiniTool Partition Wizard Free Edition](https://www.partitionwizard.com/free-partition-manager.html)などのツールを使うとCドライブ内の情報を残したままパーティションサイズを変えられる様です．ただし**設定を間違えるとウンも言わさず工場出荷状態に戻されます**．工場出荷状態に戻っても良い場合はWindowsの「ディスクの管理」マネージャーでサイズ変更しても構いません．（もちろんバックアップと起動ディスクは必須です．細心の注意が必要です）今回はWindows用に150GB，Ubuntu用に100GBに分割しました．Ubuntu用に分割したパーティションはフォーマットなどせず未設定のママで大丈夫です．</br>
 
-#### デュアルブートでubuntuインストール．．（やや不満あり）
+#### デュアルブートでUbuntuインストール．．．（やや不満あり．結果失敗）
+
+Ubuntu 16.04での情報だが[【初心者でもわかる】Ubuntuのインストール方法](https://eng-entrance.com/ubuntu-install)まとめが参考になった．上記のテスト起動法でライブDVDを起動するとubuntuのインストールボタンがある画面が現れるので，"Ubuntuをインストール"ボタンをポチる．</br>
+
+**危険：インストールの種類でデフォルトの「ディスクを削除してUbuntuをインストール」を選択すると，VirtualBoxをインストールしていなければハードディスクを丸ごと使われてしまうのでデュアルブートはできなくなる（当然Cドライブ内のWindows関係データは全て消える）．**</br>
+
+デュアルブートにする場合は「その他」を選択し手動でパーティション設定をする．この後の設定は[【初心者でもわかる】Ubuntuのインストール方法](https://eng-entrance.com/ubuntu-install)とほぼ同じにしたが「基本パーティション，ext4ジャーナリングファイルシステム，マウントポイント"/"」のパーティションと「スワップ領域」のみ追加した．スワップ領域は物理メモリの1～2倍が適正値とあるので8GBとした．あとは言われるがままに設定入力するだけでインストールが終わる．最後に再起動すればUbuntuが立ち上がる．</br>
+
+再起動すると最初に現れるUbuntuブートローダーにWindows Boot Managerが表示されないことに気付いた．Ubuntuのアクティビティーから端末アプリを立ち上げ
+
+```
+ls /sys/firmware/efi/
+```
+
+と入力すると，そんなフォルダはないと怒られた．インストールされたシステムはUEFIではなくレガシーBios起動設定でインストールされていた．この設定だとBiosを立ち上げUEFI起動を有効にするとWindows，無効にするとUbuntuがブートするシステムになった．できることならUbuntuもUEFIブートにしたいが，ネット検索した限りレガシーBiosブートシステムを後からUEFIブートに変えることは難しそうだった．挫折２ ○|￣|＿</br>
