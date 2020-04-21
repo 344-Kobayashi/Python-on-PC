@@ -1,4 +1,6 @@
-# ノートPCへPython環境構築
+# ノートPCへPython+wxPython環境構築
+
+2020-04-21
 
 ## はじめに
 
@@ -192,7 +194,7 @@ install_name_tool --add_rpath /opt/intel/mkl/lib /usr/local/var/pyenv/versions/3
 
 MKL Numpyのインストールに成功すればfacebookで開発されたpyTorchなどの機械学習モジュールが使えるようになります．
 
-(5) Scipyについては「[[Mac に MKL 版 numpy / scipy をインストールする]](https://qiita.com/Ishotihadus/items/f7d82a1f3a3ca6900bf7)」ページとは異なりScipyをビルドしてインストールすることはできませんでした．同じ現象は「[MacにPython3とMKL+Numpyをインストール](https://tm23forest.com/contents/mac-python3-install-numpy-mkl)」ページにもあります．Scipyについてはpipで普通にバイナリーからインストールするしかありませんでした．(3)でpip.confを使わなかったのはこのため．pip.confでScipyもビルドモードにしてしまうとバイナリーからのインストールされなくなります．</br>
+(5) Scipyについては[[Mac に MKL 版 numpy / scipy をインストールする]](https://qiita.com/Ishotihadus/items/f7d82a1f3a3ca6900bf7)ページとは異なりScipyをビルドしてインストールすることはできませんでした．同じ現象は[MacにPython3とMKL+Numpyをインストール](https://tm23forest.com/contents/mac-python3-install-numpy-mkl)ページにもあります．Scipyについてはpipで普通にバイナリーからインストールするしかありませんでした．(3)でpip.confを使わなかったのはこのため．pip.confでScipyもビルドモードにしてしまうとバイナリーからのインストールされなくなります．</br>
 
 
 
@@ -234,4 +236,140 @@ Ubuntu 16.04での情報だが[【初心者でもわかる】Ubuntuのインス�
 ls /sys/firmware/efi/
 ```
 
-と入力すると，そんなフォルダはないと怒られた．インストールされたシステムはUEFIではなくレガシーBios起動設定でインストールされていた．この設定だとBiosを立ち上げUEFI起動を有効にするとWindows，無効にするとUbuntuがブートするシステムになった．できることならUbuntuもUEFIブートにしたいが，ネット検索した限りレガシーBiosブートシステムを後からUEFIブートに変えることは難しそうだった．挫折２ ○|￣|＿</br>
+と入力すると，そんなフォルダはないと怒られた．インストールされたシステムはUEFIではなくレガシーBios起動設定でインストールされていた．この設定だとBiosを立ち上げUEFI起動を有効にするとWindows，無効にするとUbuntuがブートするシステムになった．できることならUbuntuもUEFIブートにしたいが，ネット検索した限りレガシーBiosブートシステムを後からUEFIブートに変えることは難しそうだった．
+
+2度目の挫折２ ○|￣|＿</br>
+
+#### Ubuntuの再インストール（結果オーライ）
+
+ライブDVD起動で失敗したため，次はライブUSBから立ち上げに挑戦．[UbuntuのライブUSBをつくる](https://blog.mktia.com/how-to-make-ubuntu-live-usb/)ページを参考にして[Universal USB Installer](https://universal-usb-installer.jp.uptodown.com/windows)を使ってライブUSBを作成しました．再びBios設定をUEFI起動を「有効」，UEFI優先度のハードディスクUEFI起動と光学ドライブUEFI起動を「無効」に設定しなおし，終了メニューから「設定を保存して再起動」を選択します．同時にUSBポートにライブUSBをさしてブートアップすると，Ubuntuが既にインストールされているためかライブデスクトップが表示されるまで進みました．デスクトップに現れるインストーラーアイコンをダブルクリックするとインストールが進み，無事UEFIブートUbuntuがインストールできました．ようやくUbuntuブートローダーでUbuntuとWindowsの起動を選択できるデュアルブート化に成功しました．（成功した理由はよくわからん）</br>
+
+次は[Ubuntu 18.04 LTSのインストール直後にやっておきたいことまとめ](https://linuxfan.info/ubuntu-18-04-basic-settings)や[Ubuntu 18.04 LTSをインストールした直後に行う設定 & インストールするソフト](https://sicklylife.jp/ubuntu/1804/settings.html)や[Ubuntu 16.04LTS を Let's Note SZ6 にデュアルブートインストール](http://yang.amp.i.kyoto-u.ac.jp/~yyama/Ubuntu/version/Ubuntu16.04LTS_sz6.html)を参考に設定変更，必要なソフトインストールを行います．Pythonインストールは後で行います．またLet's NoteへUbuntuをインストールするとでる固有の問題？は[Let's note SZ で Ubuntu](http://iranoan.my.coocan.jp/essay/pc/201609061.htm)を参考にして設定を微修正することで解決しました．</br>
+
+#### Ubuntuへのライブラリ追加
+
+wxPythonをUbuntuで利用するためにはライブラリを追加インストールする必要があることがわかりました（[[ubuntu16.04のpython3にwxpythonをインストールする](https://qiita.com/hotstaff/items/b3f8bb4c3c098d95925c)]や[github, "[Error running configure" when installing from PyPi #412](https://github.com/wxWidgets/Phoenix/issues/412)"]参照）Ubuntuのアクティビティーから端末アプリを立ち上げ下記コマンドを入力すればインストールできます．（アクティビティーとかはググって下さい）
+
+```
+apt-get install -y libgtk2.0-dev libgtk-3-dev libjpeg-dev libtiff-dev libsdl1.2-dev libgstreamer-plugins-base1.0-dev libnotify-dev freeglut3 freeglut3-dev libsm-dev libwebkitgtk-dev libwebkitgtk-3.0-dev
+```
+
+私には[wxPythonページ](https://www.wxpython.org/blog/2017-08-17-builds-for-linux-with-pip/index.html)の情報から上記を読み取る能力はありません．．．（難しすぎ）でも上記コマンドで無事必要なライブラリはインストールできました．</br>
+
+#### Pyenvインストール
+
+UbuntuもOSにPythonが含まれています．したがってmac OSと同様に仮想環境下でPythonをインストールする必要があります．事前調査不足でLinuxBrewなるパッケージ管理プログラムが存在するのを知りませんでした．[[ubuntu 18.04 に pyenv をインストールする話](https://qiita.com/pdv/items/1107bcdca7fa43de673d)]を参照してpyenvをインストールしました．brewなしの直接インストールです．はじめにpyenvインストールに必要なLinuxライブラリをインストールします．
+
+```
+sudo apt install -y build-essential
+sudo apt install -y libffi-dev
+sudo apt install -y libssl-dev
+sudo apt install -y zlib1g-dev
+sudo apt install -y liblzma-dev
+sudo apt install -y libbz2-dev libreadline-dev libsqlite3-dev
+```
+
+次にpyenvのダウンロードとインストール
+
+```
+sudo apt install -y git
+git clone https://github.com/pyenv/pyenv.git ~/.pyenv
+```
+
+.bashrcの更新
+
+```
+echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc
+echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc
+echo 'eval "$(pyenv init -)"' >> ~/.bashrc
+source ~/.bashrc
+```
+
+</br>
+
+ただmac OSの設定と合わせるなら
+
+```
+git clone https://github.com/pyenv/pyenv.git /usr/loca/var/pyenv
+echo 'export PYENV_ROOT=/usr/local/var/pyenv' >> ~/.bashrc
+echo 'export PYENV_ROOT=/usr/local/var/pyenv' >> ~/.bashrc
+echo 'eval "$(pyenv init -)"' >> ~/.bashrc
+source ~/.bashrc
+```
+
+とすべき気がするものの，前者で設定しました．pyenvがインストールされているかを
+
+```
+pyenv -v
+```
+
+で確認します．ついでに[[pyenv自身のバージョンを上げる](https://qiita.com/hatt0519/items/1c029659de4f169cd09a)]を参考にしてpyenvのupdate機能を追加するため
+
+```
+git clone git://github.com/yyuu/pyenv-update.git ~/.pyenv/plugins/pyenv-update
+```
+
+を実行．インストールが終わると
+
+```
+pyenv update
+```
+
+でpyenvのアップデートが可能になります．</br>
+
+#### Pythonインストール
+
+wxPythonページの[[Building wxPython for Linux via Pip](https://www.wxpython.org/blog/2017-08-17-builds-for-linux-with-pip/index.html#)]を確認するとpyenvでPythonをインストールするには"--enable-shared"オプションが必要とありますので，端末アプリから
+
+```
+env PYTHON_CONFIGURE_OPTS="--enable-shared" pyenv insatll 3.8.1
+```
+
+と入力してPythonをインストールします（バージョン3.8.1の場合）．あとはpipでNumpy, Scipy, lmfit, Spyderをインストールしました．MKL Numpyのインストールはまだ試していませんが[[numpy で MKL を使う](https://qiita.com/f0o0o/items/69d9b766008091a6e698)]を読むと何とかなりそうな気がします．</br>
+
+#### wxPythonインストール
+
+wxPythonインストールを始める前に一度，端末アプリウィンドを閉じて，再度端末アプリを立ち上げます（理由はわかりませんが，これをやらないとwxPythonインストールに失敗します）再立ち上げした端末アプリで
+
+```
+pip install wxpython
+```
+
+を実行するとインストールが始まります．pipインストールでは自前コンパイル＋ビルドされるため20～30分くらいかかります．インストールに失敗すると端末ウィンドが真っ赤なエラーメッセージで埋められます．端末ウィンドから
+
+```
+python
+import wx
+```
+
+と入力しエラーがでなければインストール成功です．（control+dでpythonモードを終わらせることができます）お疲れ様でした．</br>
+
+Spyderがインストールされていれば端末アプリウィンドから
+
+```
+spyder3
+```
+
+または
+
+```
+spyder3&
+```
+
+と入力するとSpyderが立ち上がります．Windows, mac OSと比べると**ブートアップ超早い**です！
+
+[まくまくPythonノート　wxPython-Layout（レイアウト）](https://maku77.github.io/python/wxpython/layout.html)ページにあるサンプルコードを入力して実行するとWindows，mac OS, Linux Ubuntuできちんと動くことが確認できました．</br>
+
+プログラムの実行速度もLinuxが最も早い気がします．苦労はしますがLinux-DesktopでPython環境を構築して使う価値は大いにあると思います．</br>
+
+**おまけ**
+
+Ubuntu-desktopをインストールするだけでGUIが起動，OfficeクローンのLibreOffice，ウェブブラウザーのFireFox，メーラーのThunderBirdもプレインストールされています．接続できるプリンターやスキャナーが少ないことを除けば使いやすいOSと思います．</br>
+
+**念押し**
+
+**このページに記載された方法を試して何らかの不具合が生じても本ページ管理者は何ら責任を負いません**．pythonやlinuxのインストールは**自己責任**で行って下さい．</br>
+
+</br>
+
+by K. Kobayashi
