@@ -202,7 +202,7 @@ install_name_tool --add_rpath /opt/intel/mkl/lib /usr/local/var/pyenv/versions/3
 #### Distribution選択
 Linuxには様々なdistribution版があり，どれを選べばよいか？から既に挫けそうです．Linuxのdistributionについては[こちら](https://ja.wikipedia.org/wiki/Linux%E3%83%87%E3%82%A3%E3%82%B9%E3%83%88%E3%83%AA%E3%83%93%E3%83%A5%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3)．その他，[【2020年】初心者にオススメなLinuxディストリビューション](http://note.kurodigi.com/linux-distro-2020/)．本管理者はwxPythonを使える環境が欲しかったので，まず[wxPythonのホームページ](https://www.wxpython.org/)を確認しました．[wxPython Downloads](https://www.wxpython.org/pages/downloads/)にLinuxの注意が書かれています．さらに[wxPython Extras linuxのgtk3フォルダ](https://extras.wxpython.org/wxPython4/extras/linux/gtk3/)を確認するとcentos-7, debian-8, 9, fedra-24~28, ununtu-14.04-18.04ならインストールできそうだと思われます．
 
-![](C:\Python備忘録\wxPython_extra_linux.gif)
+![](wxPython_extra_linux.gif)
 
 ubuntuには[日本語Remix](https://www.ubuntulinux.jp/home)版がありサイト情報も多いことから私のような初心者でも何とかなりそう．そこでubuntuのデスクトップ版で長期サポートバージョンのUbuntu 18.04.3 LTSを選択しました（長期と言っても2023年まで）．導入を試みたPCはWIndows 8.1がインストールされたPanasonic製Let's Note CF-MX3です．SSD（250GB），RAM 8GB実装マシンです．</br>
 
