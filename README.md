@@ -1,4 +1,4 @@
-# ノートPCへPython+wxPython環境構築
+# ノートPCでPython+wxPython環境構築
 
 2020-04-21
 
