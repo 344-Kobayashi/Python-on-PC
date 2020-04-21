@@ -199,9 +199,7 @@ install_name_tool --add_rpath /opt/intel/mkl/lib /usr/local/var/pyenv/versions/3
 ## Linux編
 
 **注意**：Linux導入は敷居が高いです．またCドライブ内の情報が消去されてしまう可能性もありますのでサブマシンへの導入がよいと思います．Linuxは古いPCでも軽快に動きますので中古PCやサポートが終わってしまったOSがプレインストールされているPCに導入しても十分使えます．（例えば[こちら](http://www.gadgets-today.net/?p=3591)とか，[こちら](http://lioon.net/lubuntu-the-best-for-letsnote)とか，[こちら](https://note.com/you_kyan/n/n101d8a580286)のページ）</br>
-
 #### Distribution選択
-
 Linuxには様々なdistribution版があり，どれを選べばよいか？から既に挫けそうです．Linuxのdistributionについては[こちら](https://ja.wikipedia.org/wiki/Linux%E3%83%87%E3%82%A3%E3%82%B9%E3%83%88%E3%83%AA%E3%83%93%E3%83%A5%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3)．その他，[【2020年】初心者にオススメなLinuxディストリビューション](http://note.kurodigi.com/linux-distro-2020/)．本管理者はwxPythonを使える環境が欲しかったので，まず[wxPythonのホームページ](https://www.wxpython.org/)を確認しました．[wxPython Downloads](https://www.wxpython.org/pages/downloads/)にLinuxの注意が書かれています．さらに[wxPython Extras linuxのgtk3フォルダ](https://extras.wxpython.org/wxPython4/extras/linux/gtk3/)を確認するとcentos-7, debian-8, 9, fedra-24~28, ununtu-14.04-18.04ならインストールできそうだと思われます．
 
 ![](C:\Python備忘録\wxPython_extra_linux.gif)
@@ -209,7 +207,6 @@ Linuxには様々なdistribution版があり，どれを選べばよいか？か
 ubuntuには[日本語Remix](https://www.ubuntulinux.jp/home)版がありサイト情報も多いことから私のような初心者でも何とかなりそう．そこでubuntuのデスクトップ版で長期サポートバージョンのUbuntu 18.04.3 LTSを選択しました（長期と言っても2023年まで）．導入を試みたPCはWIndows 8.1がインストールされたPanasonic製Let's Note CF-MX3です．SSD（250GB），RAM 8GB実装マシンです．</br>
 
 #### ライブDVD作成とテスト起動
-
 ubuntuには[日本語Remix](https://www.ubuntulinux.jp/home)版サイトから[ubuntu-ja-18.04.3-desktop-amd64.iso（ISOイメージ）](http://cdimage.ubuntulinux.jp/releases/18.04.3/ubuntu-ja-18.04.3-desktop-amd64.iso)をダウンロード，DVDに焼いて起動ディスク（ライブDVD）を作成します．[Ubuntu 18.04 その89 - UbuntuのライブDVDを作成するには（Windows編）](https://kledgeb.blogspot.com/2018/04/ubuntu-1804-89-ubuntudvdwindows.html)などを参考にしました．ubuntuをライブDVDから起動するとインストールしなくてもubuntuを試用することができます．（[Linux_OS　Ubuntuの試用、ライブＤＶＤ起動のすすめ](https://blog.goo.ne.jp/goosyun/e/5ae3456c18121843857be0b51c5d1e3c)）</br>
 
 [UEFIモードでUbuntuをインストールする方法（Ubuntu 16.04 LTS）](https://www.archlinux.site/2018/02/uefiubuntuubuntu-1604-lts.html) を頼りに，ライブDVDから起動するための準備としてWindowsの「コントロールパネル」→「電源オプション」→「電源ボタンの動作を設定する（システム設定）」で**高速起動のチェックを外します**．（[windows8のPCにUbuntuをインストールしデュアルブート環境で使う](https://smartgoods.me/2014/07/windows8_ubuntu_dualboot/)も参照）．その後，windowsを再起動し，PCメーカーのロゴが表示されているタイミングでBios設定画面を呼び出し（今回のPCではF2キー連打で表示），メニューから光学ドライブ電源を「オン」，起動メニューにあるUEFI起動は初期設定の「有効」にしたまま，UEFI優先度でハードディスクUEFI起動を「無効」，光学ディスクドライブUEFI起動を「有効」に変更，セキュリティーメニューの「セキュアブート」にある「セキュアブート制御」を「無効」に変更し，ライブDVDをセットして再起動しました．が，この設定では起動途中でgrubプロンプトが表示されてとまってしまい，[Ubuntu 18.04 LTSインストールガイド【スクリーンショットつき解説】](https://linuxfan.info/ubuntu-18-04-install-guide)ページのようには進まず挫折  ○|￣|＿　</br>
@@ -217,11 +214,9 @@ ubuntuには[日本語Remix](https://www.ubuntulinux.jp/home)版サイトから[
 気を取り直して今度はBios設定でUEFI起動を「無効」にし，光学ドライブの起動優先順位をハードディスクよりも先に変更したところ[Ubuntu 18.04 LTSインストールガイド【スクリーンショットつき解説】](https://linuxfan.info/ubuntu-18-04-install-guide)ページの通り試用画面が表示されました．この設定でインストールできそうなことを確認し，次はWindows Cドライブのパーティション切り変更を行います．</br>
 
 #### Cドライブパーティションサイズ変更
-
 Windows 8.1のサポートは継続されていることからWindows 8.1とubuntu-Desktop 18.04 LTSのデュアルブート化を目指します．UbuntuをインストールするにはCドライブのパーティションサイズを変更する必要があります．当然，Cドライブにある情報が消えるリスクも高いので必ず起動ディスク作成とバックアップを事前に行って下さい．さらにCドライブのプロパティーから「このディスクのクリーンアップ」を実行しデフラグします．「[Windows PCでOSをデュアルブートするときの覚え書き](https://www.cottpic.com/2019/01/dualboot-on-windows.html)」にあるように[MiniTool Partition Wizard Free Edition](https://www.partitionwizard.com/free-partition-manager.html)などのツールを使うとCドライブ内の情報を残したままパーティションサイズを変えられる様です．ただし**設定を間違えるとウンも言わさず工場出荷状態に戻されます**．工場出荷状態に戻っても良い場合はWindowsの「ディスクの管理」マネージャーでサイズ変更しても構いません．（もちろんバックアップと起動ディスクは必須です．細心の注意が必要です）今回はWindows用に150GB，Ubuntu用に100GBに分割しました．Ubuntu用に分割したパーティションはフォーマットなどせず未設定のママで大丈夫です．</br>
 
 #### デュアルブートでUbuntuインストール．．．（やや不満あり．結果失敗）
-
 Ubuntu 16.04での情報だが[【初心者でもわかる】Ubuntuのインストール方法](https://eng-entrance.com/ubuntu-install)まとめが参考になった．上記のテスト起動法でライブDVDを起動するとubuntuのインストールボタンがある画面が現れるので，"Ubuntuをインストール"ボタンをポチる．</br>
 
 **危険：インストールの種類でデフォルトの「ディスクを削除してUbuntuをインストール」を選択すると，VirtualBoxをインストールしていなければハードディスクを丸ごと使われてしまうのでデュアルブートはできなくなる（当然Cドライブ内のWindows関係データは全て消える）．**</br>
