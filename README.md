@@ -325,7 +325,13 @@ wxPythonページの[[Building wxPython for Linux via Pip](https://www.wxpython.
 env PYTHON_CONFIGURE_OPTS="--enable-shared" pyenv insatll 3.8.1
 ```
 
-と入力してPythonをインストールします（バージョン3.8.1の場合）．あとはpipでNumpy, Scipy, lmfit, Spyderをインストールしました．MKL Numpyのインストールはまだ試していませんが[[numpy で MKL を使う](https://qiita.com/f0o0o/items/69d9b766008091a6e698)]を読むと何とかなりそうな気がします．</br>
+と入力してPythonをインストールします（バージョン3.8.1の場合）．mac OSの場合と同様に普段使うPythonに設定するために
+
+```
+pyenv global 3.8.1
+```
+
+と入力します．あとはpipでNumpy, Scipy, lmfit, Spyderをインストールしました．MKL Numpyのインストールはまだ試していませんが[[numpy で MKL を使う](https://qiita.com/f0o0o/items/69d9b766008091a6e698)]を読むと何とかなりそうな気がします．</br>
 
 #### wxPythonインストール
 
@@ -372,4 +378,4 @@ Ubuntu-desktopをインストールするだけでGUIが起動，Officeクロー
 
 </br>
 
-by K. Kobayashi
+by K. Kobayashi@NIMS
