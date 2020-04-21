@@ -192,8 +192,6 @@ install_name_tool --add_rpath /opt/intel/mkl/lib /usr/local/var/pyenv/versions/3
 
 /usr/local..以降はインストールされているパスに依存します．「[Mac に MKL 版 numpy / scipy をインストールする](https://qiita.com/Ishotihadus/items/f7d82a1f3a3ca6900bf7)」」のテストにあるようにPythonからimport numpyを実行し，出力されるエラーに含まれるパス名を確認して下さい．</br>
 
-MKL Numpyのインストールに成功すればfacebookで開発されたpyTorchなどの機械学習モジュールが使えるようになります．
-
 (5) Scipyについては[[Mac に MKL 版 numpy / scipy をインストールする]](https://qiita.com/Ishotihadus/items/f7d82a1f3a3ca6900bf7)ページとは異なりScipyをビルドしてインストールすることはできませんでした．同じ現象は[MacにPython3とMKL+Numpyをインストール](https://tm23forest.com/contents/mac-python3-install-numpy-mkl)ページにもあります．Scipyについてはpipで普通にバイナリーからインストールするしかありませんでした．(3)でpip.confを使わなかったのはこのため．pip.confでScipyもビルドモードにしてしまうとバイナリーからのインストールされなくなります．</br>
 
 
