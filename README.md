@@ -169,7 +169,6 @@ spyder3&
 
 **おまけ**：NumpyでIntel MKL (Math Kernel Library)を使うと計算が速くなるモジュールもあります．mac OSの場合，自身でMKLを導入してNumpy, Scipyをビルドしなおすのは大変です．この様な用途の場合は素直にAnacondaを使いましょう．Anacondaにはnumpy+mkl，scipy+mklがプレインストールされているようです．Anacondaパッケージはpyenvからインストールできます．</br>
 
-
 **MKL Numpy+ MKL Scipyのインストール法**
 
 Anacondaを使わない場合は[ここ](https://qiita.com/Ishotihadus/items/f7d82a1f3a3ca6900bf7)を参照してインストールできました．ただしMKL Numpyのみ成功です．MKL Scipyについては(5)を読んで下さい．</br>
@@ -207,7 +206,9 @@ install_name_tool -add_rpath /opt/intel/mkl/lib /usr/local/var/pyenv/versions/3.
 pip install --no-use-pep517 --no-binary :all: scipy
 ```
 
-するとエラーなしにMKL Scipyをビルド＋インストールできました．滅茶苦茶苦労しました．．．</br>
+するとエラーなしにMKL Scipyをビルド＋インストールできました．滅茶苦茶苦労しました．．．
+
+ちなみにpip install --no-use-pep517 --no-binary :all: numpyとしても@rpathの問題は避けられません．</br>
 
 
 
