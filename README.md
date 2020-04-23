@@ -406,7 +406,7 @@ import wx
 
 と入力しエラーがでなければインストール成功です．（control+dでpythonモードを終わらせることができます）お疲れ様でした．
 
-ちなみにhttps://extras.wxpython.org/wxPython4/extras/linux/gtk3/ubuntu-18.04/からファイルをダウンロードしようとするとかなり時間がかかるので注意して下さい．</br>
+ちなみに[wxPythonページの wxPython Extras linux/gtk3フォルダ](https://extras.wxpython.org/wxPython4/extras/linux/gtk3/)からファイルをダウンロードしようとするとかなり時間がかかるので注意して下さい（約2時間）．</br>
 
 Spyderがインストールされていれば端末アプリウィンドから
 
@@ -473,6 +473,4 @@ GUIを含む同一コードが3つのOS上で走ります．特定のOS用プロ
 </br>
 
 by K. Kobayashi@NIMS
-
-
 
