@@ -208,13 +208,13 @@ install_name_tool -add_rpath /opt/intel/mkl/lib /usr/local/var/pyenv/versions/3.
 
 (5) Scipyについては[[Mac に MKL 版 numpy / scipy をインストールする]](https://qiita.com/Ishotihadus/items/f7d82a1f3a3ca6900bf7)ページとは異なりScipyをビルドしてインストールすることはできませんでした．同じ現象は[MacにPython3とMKL+Numpyをインストール](https://tm23forest.com/contents/mac-python3-install-numpy-mkl)ページにもあることからMKL Scipyは諦めかけました．</br>
 
-偶然[[pyenv+poetry環境下のnumpy,scipyでmklを使いたい](https://qiita.com/yano404/items/b78503749c2e45b4b638)]を見たところ，pep517を使わないレガシー・ビルド＋インストールでMKL Scipyのインストールに成功したとありましたので下記コマンドを試行．
+偶然[[pyenv+poetry環境下のnumpy,scipyでmklを使いたい](https://qiita.com/yano404/items/b78503749c2e45b4b638)]を見たところ，pep517を使わないレガシー・インストールでMKL Scipyのインストールに成功したとありましたので下記コマンドを試行．
 
 ```
 pip install --no-use-pep517 --no-binary :all: scipy
 ```
 
-するとエラーなしにMKL Scipyをビルド＋インストールできました．すこし時間がかかります．ここまで来るのに滅茶苦茶苦労しました．．．
+するとエラーなしにMKL Scipyをインストールできました．すこし時間がかかります．ここまで来るのに滅茶苦茶苦労しました．．．
 
 ちなみにpip install --no-use-pep517 --no-binary :all: numpyとしても@rpathの問題は避けられません．</br></br>
 
