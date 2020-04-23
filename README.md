@@ -206,7 +206,7 @@ install_name_tool -add_rpath /opt/intel/mkl/lib /usr/local/var/pyenv/versions/3.
 
 /usr/local..以降はインストールされているパスに依存します．「[Mac に MKL 版 numpy / scipy をインストールする](https://qiita.com/Ishotihadus/items/f7d82a1f3a3ca6900bf7)」」のテストにあるようにPythonからimport numpyを実行し，出力されるエラーに含まれるパス名を確認して下さい．</br>
 
-(5) Scipyについては[[Mac に MKL 版 numpy / scipy をインストールする]](https://qiita.com/Ishotihadus/items/f7d82a1f3a3ca6900bf7)ページとは異なりScipyをビルドしてインストールすることはできませんでした．同じ現象は[MacにPython3とMKL+Numpyをインストール](https://tm23forest.com/contents/mac-python3-install-numpy-mkl)ページにもあり，諦めかけました．</br>
+(5) Scipyについては[[Mac に MKL 版 numpy / scipy をインストールする]](https://qiita.com/Ishotihadus/items/f7d82a1f3a3ca6900bf7)ページとは異なりScipyをビルドしてインストールすることはできませんでした．同じ現象は[MacにPython3とMKL+Numpyをインストール](https://tm23forest.com/contents/mac-python3-install-numpy-mkl)ページにもあることからMKL Scipyは諦めかけました．</br>
 
 偶然[[pyenv+poetry環境下のnumpy,scipyでmklを使いたい](https://qiita.com/yano404/items/b78503749c2e45b4b638)]を見たところ，pep517を使わないレガシー・ビルド＋インストールでMKL Scipyのインストールに成功したとありましたので下記コマンドを試行．
 
