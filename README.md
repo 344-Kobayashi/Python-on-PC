@@ -434,15 +434,15 @@ wxPythonのインストールが成功し，Matplotlib, Numpyなどもインス�
 
 Windows:
 
-![Windows](Matplotlib_Embedding_in_wx#4_Windows.gif)
+![Windows](Matplotlib_Embedding_in_wx4_Windows.gif)
 
 mac OS:
 
-![mac OS](Matplotlib_Embedding_in_wx#4_macOS.gif)
+![mac OS](Matplotlib_Embedding_in_wx4_macOS.gif)
 
 Ubuntu:
 
-![Ubuntu](Matplotlib_Embedding_in_wx#4_Ubuntu.gif)
+![Ubuntu](Matplotlib_Embedding_in_wx4_Ubuntu.gif)
 
 </br></br>
 
