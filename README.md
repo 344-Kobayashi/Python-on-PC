@@ -12,7 +12,7 @@ PythonはWindows, macOS, Linuxに加えてiOS，アンドロイドでも利用�
 
 Pythonは複数のバージョンやインストールされたモジュール数が異なる環境を使うことが多いようです．本ページでは複数バージョンのPython環境の構築が目的の一つであるため，[pythonの本家本元サイト](http://www.python.org)からダウンロードする方法は用いていません．</br>
 
-あと数値演算を高速化するIntel Math Kernel Library (MKL)を組み込んだNumpy, Scipyのインストール法も記載しました．Windowsでは簡単，mac OSは超苦労，Linuxではやや苦労しました．
+あと数値演算を高速化するIntel Math Kernel Library (MKL)を組み込んだNumpy, Scipyのインストール法も記載しました．Windowsでは簡単，mac OSは超苦労，Linuxではやや苦労しました．</br></br>
 
 
 
@@ -69,9 +69,15 @@ wxPythonのインストールはWinPython Command Prompt，WinPython Powershell 
 
 `pip install wxpython`
 
-と入力すればOKです．proxy設定についてはpipのヘルプまたはググって下さい．</br>
+と入力すればOKです．proxy設定が必要な場合はpipのヘルプまたはググって下さい．基本は
 
-**補足情報**：Windows用のPython用バイナリーモジュールは[Unofficial Windows Binaries for Python Extension Packages](https://www.lfd.uci.edu/~gohlke/pythonlibs/)ページから取得することもできます．このページには各モジュールの簡単な説明が付いていますので，どんなモジュールがあるのか？辞書代わりになります．MKLビルド版numpyのバイナリーもアップロードされていますので，これらも簡単にインストールできます．</br>
+```
+pip install [モジュール名] --proxy [user:passwod@]proxy.server:port
+```
+
+です．</br>
+
+**補足情報**：Windows用のPython用バイナリーモジュールは[Unofficial Windows Binaries for Python Extension Packages](https://www.lfd.uci.edu/~gohlke/pythonlibs/)ページから取得することもできます．このページには各モジュールの簡単な説明が付いていますので，どんなモジュールがあるのか？辞書代わりになります．MKLビルド版numpyのバイナリーもアップロードされていますので，これらも簡単にインストールできます．</br></br>
 
 
 
@@ -87,7 +93,7 @@ mac OSはシステムでPythonを使っています．したがってOSにイン
 
 現行のmac OS 10.15 (Cataline)へのHomebrewとpyenvのインストールについては「[MacOSとHomebrewとpyenvで快適python環境を。](https://qiita.com/crankcube/items/15f06b32ec56736fc43a)」ページの通りに行えばpyenvをインストールするところまでは同じ操作で大丈夫です．</br>
 
-「[MacOSとHomebrewとpyenvで快適python環境を。](https://qiita.com/crankcube/items/15f06b32ec56736fc43a)」ページにも書かれていますがPythonのインストールは自前でコンパイルされます．（なのでXCodeのインストールが事前に必要）wxPythonはmac OSのライブラリーにアクセスするため，Pythonインストール時にOSライブラリーにリンクを張るオプションをつける必要があります．したがって（例えばPython3.8.1の）インストールは
+「[MacOSとHomebrewとpyenvで快適python環境を。](https://qiita.com/crankcube/items/15f06b32ec56736fc43a)」ページにも書かれていますがPythonのインストールは自前でコンパイルされます．（なのでXCodeのインストールが事前に必要）wxPythonはmac OSのライブラリにアクセスするため，Pythonインストール時にOSライブラリにリンクを張るオプションをつける必要があります．したがって（例えばPython3.8.1の）インストールは
 
 ```
 pyenv install 3.8.1
@@ -167,7 +173,9 @@ spyder3&
 
 **補足**：PYTHON_CONFIGURE_OPTS="--enable-framework"とPYTHON_CONFIGURE_OPTS="--enable-shared"については「[PYTHONビルド時の--enable-frameworkと--enable-sharedの違い](https://abrakatabura.hatenablog.com/entry/2017/07/08/130407)」に解説があります．</br>
 
-**おまけ**：NumpyでIntel MKL (Math Kernel Library)を使うと計算が速くなるモジュールもあります．mac OSの場合，自身でMKLを導入してNumpy, Scipyをビルドしなおすのは大変です．この様な用途の場合は素直にAnacondaを使いましょう．Anacondaにはnumpy+mkl，scipy+mklがプレインストールされているようです．Anacondaパッケージはpyenvからインストールできます．</br>
+**おまけ**：NumpyでIntel MKL (Math Kernel Library)を使うと計算が速くなるモジュールもあります．mac OSの場合，自身でMKLを導入してNumpy, Scipyをビルドしなおすのは大変です．この様な用途の場合は素直にAnacondaを使いましょう．Anacondaにはnumpy+mkl，scipy+mklがプレインストールされているようです．Anacondaパッケージはpyenvからインストールできます．</br></br>
+
+
 
 **MKL Numpy+ MKL Scipyのインストール法**
 
@@ -206,9 +214,9 @@ install_name_tool -add_rpath /opt/intel/mkl/lib /usr/local/var/pyenv/versions/3.
 pip install --no-use-pep517 --no-binary :all: scipy
 ```
 
-するとエラーなしにMKL Scipyをビルド＋インストールできました．滅茶苦茶苦労しました．．．
+するとエラーなしにMKL Scipyをビルド＋インストールできました．すこし時間がかかります．ここまで来るのに滅茶苦茶苦労しました．．．
 
-ちなみにpip install --no-use-pep517 --no-binary :all: numpyとしても@rpathの問題は避けられません．</br>
+ちなみにpip install --no-use-pep517 --no-binary :all: numpyとしても@rpathの問題は避けられません．</br></br>
 
 
 
@@ -266,10 +274,18 @@ ls /sys/firmware/efi/
 
 #### Ubuntuへのライブラリ追加
 
-wxPythonをUbuntuで利用するためにはライブラリを追加インストールする必要があることがわかりました（[[ubuntu16.04のpython3にwxpythonをインストールする](https://qiita.com/hotstaff/items/b3f8bb4c3c098d95925c)]や[github, "[Error running configure" when installing from PyPi #412](https://github.com/wxWidgets/Phoenix/issues/412)"]参照）Ubuntuのアクティビティーから端末アプリを立ち上げ下記コマンドを入力すればインストールできます．（アクティビティーとかはググって下さい）
+wxPythonをUbuntuで利用するためにはライブラリを追加インストールする必要があることがわかりました（[[ubuntu16.04のpython3にwxpythonをインストールする](https://qiita.com/hotstaff/items/b3f8bb4c3c098d95925c)]や[github, "[Error running configure" when installing from PyPi #412](https://github.com/wxWidgets/Phoenix/issues/412)"]参照）Ubuntuのアクティビティーから端末アプリを立ち上げ下記コマンドを入力すればインストールできます．アクティビティーは下図
+
+![Ubuntu_desktop](Ubuntu_desktop.gif)
+
+アクティビティーウィンドウの端末アプリは下図
+
+![ActivityWindow](ActivityWindow.gif)
+
+端末アプリを立ち上げ，ウィンドウに下記コマンドを入力．
 
 ```
-apt-get install -y libgtk2.0-dev libgtk-3-dev libjpeg-dev libtiff-dev libsdl1.2-dev libgstreamer-plugins-base1.0-dev libnotify-dev freeglut3 freeglut3-dev libsm-dev libwebkitgtk-dev libwebkitgtk-3.0-dev
+sudo apt-get install -y libgtk2.0-dev libgtk-3-dev libjpeg-dev libtiff-dev libsdl1.2-dev libgstreamer-plugins-base1.0-dev libnotify-dev freeglut3 freeglut3-dev libsm-dev libwebkitgtk-dev libwebkitgtk-3.0-dev
 ```
 
 私には[wxPythonページ](https://www.wxpython.org/blog/2017-08-17-builds-for-linux-with-pip/index.html)の情報から上記を読み取る能力はありません．．．（難しすぎ）でも上記コマンドで無事必要なライブラリはインストールできました．</br>
@@ -337,7 +353,7 @@ pyenv update
 
 #### Pythonインストール
 
-wxPythonページの[[Building wxPython for Linux via Pip](https://www.wxpython.org/blog/2017-08-17-builds-for-linux-with-pip/index.html#)]を確認するとpyenvでPythonをインストールするには"--enable-shared"オプションが必要とありますので，端末アプリから
+wxPythonページの[[Building wxPython for Linux via Pip](https://www.wxpython.org/blog/2017-08-17-builds-for-linux-with-pip/index.html#)]を確認するとpyenvでPythonをインストールするには"--enable-shared"オプションが必要とありますので，端末アプリウィンドウから
 
 ```
 env PYTHON_CONFIGURE_OPTS="--enable-shared" pyenv insatll 3.8.1
@@ -349,7 +365,7 @@ env PYTHON_CONFIGURE_OPTS="--enable-shared" pyenv insatll 3.8.1
 pyenv global 3.8.1
 ```
 
-と入力します．
+と入力します．</br>
 
 #### MKL Numpy, MKL Scipyのインストール
 
@@ -371,7 +387,7 @@ pip install cython
 pip install --no-binary :all: scipy
 ```
 
-でScipyをビルド＋インストールで成功しました．ビルドには15分くらいかかりました．</br>
+でScipyをビルドしてインストールに成功しました．ビルドには15分くらいかかりました．</br>
 
 #### wxPythonインストール
 
@@ -388,7 +404,9 @@ python
 import wx
 ```
 
-と入力しエラーがでなければインストール成功です．（control+dでpythonモードを終わらせることができます）お疲れ様でした．</br>
+と入力しエラーがでなければインストール成功です．（control+dでpythonモードを終わらせることができます）お疲れ様でした．
+
+ちなみにhttps://extras.wxpython.org/wxPython4/extras/linux/gtk3/ubuntu-18.04/からファイルをダウンロードしようとするとかなり時間がかかるので注意して下さい．</br>
 
 Spyderがインストールされていれば端末アプリウィンドから
 
@@ -404,13 +422,49 @@ spyder3&
 
 と入力するとSpyderが立ち上がります．Windows, mac OSと比べると**ブートアップ超早い**です！
 
-[まくまくPythonノート　wxPython-Layout（レイアウト）](https://maku77.github.io/python/wxpython/layout.html)ページにあるサンプルコードを入力して実行するとWindows，mac OS, Linux Ubuntuできちんと動くことが確認できました．</br>
-
 プログラムの実行速度もLinuxが最も早い気がします．苦労はしますがLinux-DesktopでPython環境を構築して使う価値は大いにあると思います．</br>
 
 **おまけ**
 
-Ubuntu-desktopをインストールするだけでGUIが起動，OfficeクローンのLibreOffice，ウェブブラウザーのFireFox，メーラーのThunderBirdもプレインストールされています．接続できるプリンターやスキャナーが少ないことを除けば使いやすいOSと思います．</br>
+Ubuntu-desktopをインストールするだけでGUIが起動，OfficeクローンのLibreOffice，ウェブブラウザーのFireFox，メーラーのThunderBirdもプレインストールされています．接続できるプリンターやスキャナーが少ないことを除けば使いやすいOSと思います．</br></br>
+
+#### テスト
+
+wxPythonのインストールが成功し，Matplotlib, Numpyなどもインストールされていれば[Mapplotlibの公式ページ](https://matplotlib.org/)に含まれる[Embedding in wx#4サンプルコード](https://matplotlib.org/3.1.3/gallery/user_interfaces/embedding_in_wx4_sgskip.html)を走らせることができます．
+
+Windows:
+
+![Windows](Matplotlib_Embedding_in_wx#4_Windows.gif)
+
+mac OS:
+
+![mac OS](Matplotlib_Embedding_in_wx#4_macOS.gif)
+
+Ubuntu:
+
+![Ubuntu](Matplotlib_Embedding_in_wx#4_Ubuntu.gif)
+
+</br></br>
+
+
+
+[まくまくPythonノート　wxPython-Layout（レイアウト）](https://maku77.github.io/python/wxpython/layout.html)ページにあるサンプルコードを入力して実行するとWindows，mac OS, Linux Ubuntuできちんと動くことが確認できます．「wx.BoxSizer を使って widget を横方向、縦方向に並べる」のコードを走らせました．
+
+Windows:
+
+![BoxSizer_Windows](BoxSizer_Windows.gif)
+
+mac OS:
+
+![BoxSizer_macOS](BoxSizer_macOS.gif)
+
+Ubuntu:
+
+![BoxSizer_Ubuntu](BoxSizer_Ubuntu.gif)
+
+GUIを含む同一コードが3つのOS上で走ります．特定のOS用プログラムを開発しなくても良いのは大きなメリットと思います．
+
+
 
 **念押し**
 
