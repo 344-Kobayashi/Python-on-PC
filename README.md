@@ -1,6 +1,6 @@
 # ノートPCでPython+wxPython環境構築
 
-2020-04-21
+2020-04-22
 
 ## はじめに
 
@@ -11,6 +11,10 @@
 PythonはWindows, macOS, Linuxに加えてiOS，アンドロイドでも利用できるプログラミング言語です．Pythonのグラフィック・ユーザー・インターフェイス（GUI）モジュールであるwxPythonと組み合わせるとWindows，macOS，Linuxで作動するプログラムを書けることに興味を持ち，いろいろ試した結果です．wxPythonはライセンスがゆるめで使いやすい気がします．</br>
 
 Pythonは複数のバージョンやインストールされたモジュール数が異なる環境を使うことが多いようです．本ページでは複数バージョンのPython環境の構築が目的の一つであるため，[pythonの本家本元サイト](http://www.python.org)からダウンロードする方法は用いていません．</br>
+
+あと数値演算を高速化するIntel Math Kernel Library (MKL)を組み込んだNumpy, Scipyのインストール法も記載しました．Windowsでは簡単，mac OSは超苦労，Linuxではやや苦労しました．
+
+
 
 ## Windows編
 
@@ -75,7 +79,11 @@ wxPythonのインストールはWinPython Command Prompt，WinPython Powershell 
 
 mac OSはシステムでPythonを使っています．したがってOSにインストールされているPythonとは異なる仮想環境下でPythonをインストールする必要があります．</br>
 
-仮想環境下へのPythonインストールにはAnacondaあるいはHomebrew + pyenvを用いた方法などがあるようです．本ページ管理者はWIndowsの場合と同様にpyQtをcommercial版に置き換えたかったこと，複数バージョンのPython環境を構築したかったことからHomebrew + pyenvを用いた環境構築を採用しました．用いたのは2017年製MacBook Airです．</br>
+仮想環境下へのPythonインストールにはAnacondaあるいはHomebrew + pyenvを用いた方法などがあるようです．本ページ管理者はWIndowsの場合と同様にpyQtをcommercial版に置き換えたかったこと，複数バージョンのPython環境を構築したかったことからHomebrew + pyenvを用いた環境構築を採用しました．使用したマシンとOSは下記です．
+
+・MacBook Air（13-inch, Early 2015モデル），250GB HD，8 GBメモリ
+
+・mac OS: 10.15.4 (Catalina)
 
 現行のmac OS 10.15 (Cataline)へのHomebrewとpyenvのインストールについては「[MacOSとHomebrewとpyenvで快適python環境を。](https://qiita.com/crankcube/items/15f06b32ec56736fc43a)」ページの通りに行えばpyenvをインストールするところまでは同じ操作で大丈夫です．</br>
 
@@ -163,9 +171,9 @@ spyder3&
 
 **MKL Numpyインストール法**
 
-Anacondaを使わない場合は[ここ](https://qiita.com/Ishotihadus/items/f7d82a1f3a3ca6900bf7)を参照してインストールできました．ただしMKL Numpyのみ成功</br>
+Anacondaを使わない場合は[ここ](https://qiita.com/Ishotihadus/items/f7d82a1f3a3ca6900bf7)を参照してインストールできました．ただしMKL Numpyのみ成功です．MKL Scipyについては(5)を読んで下さい．</br>
 
-(1) IntelからMKLをダウンロードしインストール．インストールパスはデフォルトの/opt/intelのまま</br>
+(1) IntelからMKLをダウンロード+インストール．インストールパスはデフォルトの/opt/intelのまま</br>
 
 (2) .numpy.cfgファイルをホームディレクトリに作成．内容は
 
@@ -182,15 +190,23 @@ mkl_libs = mkl_rt
 pip install --no-binary :all: numpy
 ```
 
-(4) @rpathの追加．ターミナルで下記コマンドを実行（「[MacOSとHomebrewとpyenvで快適python環境を。](https://qiita.com/crankcube/items/15f06b32ec56736fc43a)」に記載されているパスにpyenvとPython3.8.1がインストールされている場合）
+(4) @rpathの追加．このままだとpythonでimport numpyとしたときに，Pythonが@rpath/libmkl_rt.dylibを見つけられないエラーが発生する．（[[Mac に MKL 版 numpy / scipy をインストールする](https://qiita.com/Ishotihadus/items/f7d82a1f3a3ca6900bf7)]を参照）この現象，.zshrcでLD_LIBRARY_PATHを指定しても解決できないらしい．そこでエラーが出た so ファイルに、強引に @rpathを追加する．パス名はインストールされている環境に合わせる．ターミナルで下記コマンドを実行（「[MacOSとHomebrewとpyenvで快適python環境を。](https://qiita.com/crankcube/items/15f06b32ec56736fc43a)」に記載されているパスにpyenvとPython3.8.1がインストールされている場合）
 
 ```
-install_name_tool --add_rpath /opt/intel/mkl/lib /usr/local/var/pyenv/versions/3.8.1/Python.framework/Versions/3.8/lib/python3.8/site-packages/numpy/core/_multiarray_umath.cpython-38-darwin.so
+install_name_tool -add_rpath /opt/intel/mkl/lib /usr/local/var/pyenv/versions/3.8.1/Python.framework/Versions/3.8/lib/python3.8/site-packages/numpy/core/_multiarray_umath.cpython-38-darwin.so
 ```
 
 /usr/local..以降はインストールされているパスに依存します．「[Mac に MKL 版 numpy / scipy をインストールする](https://qiita.com/Ishotihadus/items/f7d82a1f3a3ca6900bf7)」」のテストにあるようにPythonからimport numpyを実行し，出力されるエラーに含まれるパス名を確認して下さい．</br>
 
-(5) Scipyについては[[Mac に MKL 版 numpy / scipy をインストールする]](https://qiita.com/Ishotihadus/items/f7d82a1f3a3ca6900bf7)ページとは異なりScipyをビルドしてインストールすることはできませんでした．同じ現象は[MacにPython3とMKL+Numpyをインストール](https://tm23forest.com/contents/mac-python3-install-numpy-mkl)ページにもあります．Scipyについてはpipで普通にバイナリーからインストールするしかありませんでした．(3)でpip.confを使わなかったのはこのため．pip.confでScipyもビルドモードにしてしまうとバイナリーからのインストールされなくなります．</br>
+(5) Scipyについては[[Mac に MKL 版 numpy / scipy をインストールする]](https://qiita.com/Ishotihadus/items/f7d82a1f3a3ca6900bf7)ページとは異なりScipyをビルドしてインストールすることはできませんでした．同じ現象は[MacにPython3とMKL+Numpyをインストール](https://tm23forest.com/contents/mac-python3-install-numpy-mkl)ページにもあり，諦めかけました．</br>
+
+偶然[[pyenv+poetry環境下のnumpy,scipyでmklを使いたい](https://qiita.com/yano404/items/b78503749c2e45b4b638)]を見たところ，pep517を使わないレガシー・ビルド＋インストールでMKL Scipyのインストールに成功したとありましたので下記コマンドを試行．
+
+```
+pip install --no-use-pep517 --no-binary :all: scipy
+```
+
+するとエラーなしにMKL Scipyをビルド＋インストールできました．滅茶苦茶苦労しました．．．</br>
 
 
 
@@ -210,37 +226,41 @@ ubuntuには[日本語Remix](https://www.ubuntulinux.jp/home)版がありサイ�
 
 ubuntuには[日本語Remix](https://www.ubuntulinux.jp/home)版サイトから[ubuntu-ja-18.04.3-desktop-amd64.iso（ISOイメージ）](http://cdimage.ubuntulinux.jp/releases/18.04.3/ubuntu-ja-18.04.3-desktop-amd64.iso)をダウンロード，DVDに焼いて起動ディスク（ライブDVD）を作成します．[Ubuntu 18.04 その89 - UbuntuのライブDVDを作成するには（Windows編）](https://kledgeb.blogspot.com/2018/04/ubuntu-1804-89-ubuntudvdwindows.html)などを参考にしました．ubuntuをライブDVDから起動するとインストールしなくてもubuntuを試用することができます．（[Linux_OS　Ubuntuの試用、ライブＤＶＤ起動のすすめ](https://blog.goo.ne.jp/goosyun/e/5ae3456c18121843857be0b51c5d1e3c)）</br>
 
-[UEFIモードでUbuntuをインストールする方法（Ubuntu 16.04 LTS）](https://www.archlinux.site/2018/02/uefiubuntuubuntu-1604-lts.html) を頼りに，ライブDVDから起動するための準備としてWindowsの「コントロールパネル」→「電源オプション」→「電源ボタンの動作を設定する（システム設定）」で**高速起動のチェックを外します**．（[windows8のPCにUbuntuをインストールしデュアルブート環境で使う](https://smartgoods.me/2014/07/windows8_ubuntu_dualboot/)も参照）．その後，windowsを再起動し，PCメーカーのロゴが表示されているタイミングでBios設定画面を呼び出し（今回のPCではF2キー連打で表示），メニューから光学ドライブ電源を「オン」，起動メニューにあるUEFI起動は初期設定の「有効」にしたまま，UEFI優先度でハードディスクUEFI起動を「無効」，光学ディスクドライブUEFI起動を「有効」に変更，セキュリティーメニューの「セキュアブート」にある「セキュアブート制御」を「無効」に変更し，ライブDVDをセットして再起動しました．が，この設定では起動途中でgrubプロンプトが表示されてとまってしまい，[Ubuntu 18.04 LTSインストールガイド【スクリーンショットつき解説】](https://linuxfan.info/ubuntu-18-04-install-guide)ページのようには進まず挫折  ○|￣|＿　</br>
+[UEFIモードでUbuntuをインストールする方法（Ubuntu 16.04 LTS）](https://www.archlinux.site/2018/02/uefiubuntuubuntu-1604-lts.html) を頼りに，ライブDVDから起動するための準備としてWindowsの「コントロールパネル」→「電源オプション」→「電源ボタンの動作を設定する（システム設定）」で**高速起動のチェックを外します**．（[windows8のPCにUbuntuをインストールしデュアルブート環境で使う](https://smartgoods.me/2014/07/windows8_ubuntu_dualboot/)も参照）．その後，windowsを再起動し，PCメーカーのロゴが表示されているタイミングでBios設定画面を呼び出し（今回のPCではF2キー連打で表示），メニューから光学ドライブ電源を「オン」，起動メニューにあるUEFI起動は初期設定の「有効」にしたまま，UEFI優先度でハードディスクUEFI起動を「無効」，光学ディスクドライブUEFI起動を「有効」に変更，セキュリティーメニューの「セキュアブート」にある「セキュアブート制御」を「無効」に変更し，ライブDVDをセットして再起動しました．が，この設定では起動途中でgrubプロンプトが表示されてとまってしまい，[Ubuntu 18.04 LTSインストールガイド【スクリーンショットつき解説】](https://linuxfan.info/ubuntu-18-04-install-guide)ページのようには進まず最初の挫折  ○|￣|＿　</br>
 
-気を取り直して今度はBios設定でUEFI起動を「無効」にし，光学ドライブの起動優先順位をハードディスクよりも先に変更したところ[Ubuntu 18.04 LTSインストールガイド【スクリーンショットつき解説】](https://linuxfan.info/ubuntu-18-04-install-guide)ページの通り試用画面が表示されました．この設定でインストールできそうなことを確認し，次はWindows Cドライブのパーティション切り変更を行います．</br>
+気を取り直して今度はBios設定でUEFI起動を「無効」にし，光学ドライブの起動優先順位をハードディスクよりも先に変更したところ[Ubuntu 18.04 LTSインストールガイド【スクリーンショットつき解説】](https://linuxfan.info/ubuntu-18-04-install-guide)ページの通り試用画面が表示されました．この設定でインストールできそうなことを確認し，次はWindows Cドライブのパーティションサイズ変更を行います．</br>
 
 #### Cドライブパーティションサイズ変更
 
 Windows 8.1のサポートは継続されていることからWindows 8.1とubuntu-Desktop 18.04 LTSのデュアルブート化を目指します．UbuntuをインストールするにはCドライブのパーティションサイズを変更する必要があります．当然，Cドライブにある情報が消えるリスクも高いので必ず起動ディスク作成とバックアップを事前に行って下さい．さらにCドライブのプロパティーから「このディスクのクリーンアップ」を実行しデフラグします．「[Windows PCでOSをデュアルブートするときの覚え書き](https://www.cottpic.com/2019/01/dualboot-on-windows.html)」にあるように[MiniTool Partition Wizard Free Edition](https://www.partitionwizard.com/free-partition-manager.html)などのツールを使うとCドライブ内の情報を残したままパーティションサイズを変えられる様です．ただし**設定を間違えるとウンも言わさず工場出荷状態に戻されます**．工場出荷状態に戻っても良い場合はWindowsの「ディスクの管理」マネージャーでサイズ変更しても構いません．（もちろんバックアップと起動ディスクは必須です．細心の注意が必要です）今回はWindows用に150GB，Ubuntu用に100GBに分割しました．Ubuntu用に分割したパーティションはフォーマットなどせず未設定のママで大丈夫です．</br>
 
-#### デュアルブートでUbuntuインストール．．．（やや不満あり．結果失敗）
+#### デュアルブートでUbuntuインストール．．．（やや不満ありの結果）
 
-Ubuntu 16.04での情報だが[【初心者でもわかる】Ubuntuのインストール方法](https://eng-entrance.com/ubuntu-install)まとめが参考になった．上記のテスト起動法でライブDVDを起動するとubuntuのインストールボタンがある画面が現れるので，"Ubuntuをインストール"ボタンをポチる．</br>
+Ubuntu 16.04での情報だが[【初心者でもわかる】Ubuntuのインストール方法](https://eng-entrance.com/ubuntu-install)まとめが参考になりました．上記のテスト起動法でライブDVDを起動するとubuntuのインストールボタンがある画面が現れるので，"Ubuntuをインストール"ボタンを押します．</br>
 
-**危険：インストールの種類でデフォルトの「ディスクを削除してUbuntuをインストール」を選択すると，VirtualBoxをインストールしていなければハードディスクを丸ごと使われてしまうのでデュアルブートはできなくなる（当然Cドライブ内のWindows関係データは全て消える）．**</br>
+**危険：インストールの種類でデフォルトの「ディスクを削除してUbuntuをインストール」を選択すると，VirtualBoxをインストールしていなければハードディスクを丸ごと使われてしまうのでデュアルブートはできなくなります（当然Cドライブ内のWindows関係データは全て消えます）．**</br>
 
-デュアルブートにする場合は「その他」を選択し手動でパーティション設定をする．この後の設定は[【初心者でもわかる】Ubuntuのインストール方法](https://eng-entrance.com/ubuntu-install)とほぼ同じにしたが「基本パーティション，ext4ジャーナリングファイルシステム，マウントポイント"/"」のパーティションと「スワップ領域」のみ追加した．スワップ領域は物理メモリの1～2倍が適正値とあるので8GBとした．あとは言われるがままに設定入力するだけでインストールが終わる．最後に再起動すればUbuntuが立ち上がる．</br>
+デュアルブートにする場合は「その他」を選択し手動でパーティション設定します．この後の設定は[【初心者でもわかる】Ubuntuのインストール方法](https://eng-entrance.com/ubuntu-install)とほぼ同じにしたが「基本パーティション，ext4ジャーナリングファイルシステム，マウントポイント"/"」のパーティションと「スワップ領域」のみ追加しました．スワップ領域は物理メモリの1～2倍が適正値とあるので8GBにしました．あとは言われるがままに設定入力するだけでインストールが終わります．最後に再起動すればUbuntuが立ち上がります．</br>
 
-再起動すると最初に現れるUbuntuブートローダーにWindows Boot Managerが表示されないことに気付いた．Ubuntuのアクティビティーから端末アプリを立ち上げ
+再起動すると最初に現れるUbuntuブートローダーにWindows Boot Managerが表示されないことに気付きました．Ubuntuのアクティビティーから端末アプリを立ち上げ
 
 ```
 ls /sys/firmware/efi/
 ```
 
-と入力すると，そんなフォルダはないと怒られた．インストールされたシステムはUEFIではなくレガシーBios起動設定でインストールされていた．この設定だとBiosを立ち上げUEFI起動を有効にするとWindows，無効にするとUbuntuがブートするシステムになった．できることならUbuntuもUEFIブートにしたいが，ネット検索した限りレガシーBiosブートシステムを後からUEFIブートに変えることは難しそうだった．
+と入力すると，そんなフォルダはないと怒られました．インストールされたシステムはUEFIではなくレガシーBios起動設定でインストールされていました．この設定だとBiosを立ち上げUEFI起動を有効にするとWindows，無効にするとUbuntuがブートするシステムになってしまいました．（Bios設定を考えれば当たり前です）できることならUbuntuもUEFIブートにしたいが，ネット検索した限りレガシーBiosブートシステムを後からUEFIブートに変えることは難しそうでした．
 
 2度目の挫折２ ○|￣|＿</br>
 
 #### Ubuntuの再インストール（結果オーライ）
 
-ライブDVD起動で失敗したため，次はライブUSBから立ち上げに挑戦．[UbuntuのライブUSBをつくる](https://blog.mktia.com/how-to-make-ubuntu-live-usb/)ページを参考にして[Universal USB Installer](https://universal-usb-installer.jp.uptodown.com/windows)を使ってライブUSBを作成しました．再びBios設定をUEFI起動を「有効」，UEFI優先度のハードディスクUEFI起動と光学ドライブUEFI起動を「無効」に設定しなおし，終了メニューから「設定を保存して再起動」を選択します．同時にUSBポートにライブUSBをさしてブートアップすると，Ubuntuが既にインストールされているためかライブデスクトップが表示されるまで進みました．デスクトップに現れるインストーラーアイコンをダブルクリックするとインストールが進み，無事UEFIブートUbuntuがインストールできました．ようやくUbuntuブートローダーでUbuntuとWindowsの起動を選択できるデュアルブート化に成功しました．（成功した理由はよくわからん）</br>
+ライブDVD起動で失敗したため，次はライブUSBから立ち上げに挑戦．[UbuntuのライブUSBをつくる](https://blog.mktia.com/how-to-make-ubuntu-live-usb/)ページを参考にして[Universal USB Installer](https://universal-usb-installer.jp.uptodown.com/windows)を使ってライブUSBを作成しました．再びBios設定をUEFI起動を「有効」，UEFI優先度のハードディスクUEFI起動と光学ドライブUEFI起動を「無効」に設定しなおし，終了メニューから「設定を保存して再起動」を選択します．同時にUSBポートにライブUSBをさしてブートアップすると，Ubuntuが既にインストールされているためかライブデスクトップが表示されるまで進みました．デスクトップに現れるインストーラーアイコンをダブルクリックするとインストールが進み，無事UEFIブートUbuntuがインストールできました．</br>
 
-次は[Ubuntu 18.04 LTSのインストール直後にやっておきたいことまとめ](https://linuxfan.info/ubuntu-18-04-basic-settings)や[Ubuntu 18.04 LTSをインストールした直後に行う設定 & インストールするソフト](https://sicklylife.jp/ubuntu/1804/settings.html)や[Ubuntu 16.04LTS を Let's Note SZ6 にデュアルブートインストール](http://yang.amp.i.kyoto-u.ac.jp/~yyama/Ubuntu/version/Ubuntu16.04LTS_sz6.html)を参考に設定変更，必要なソフトインストールを行います．Pythonインストールは後で行います．またLet's NoteへUbuntuをインストールするとでる固有の問題？は[Let's note SZ で Ubuntu](http://iranoan.my.coocan.jp/essay/pc/201609061.htm)を参考にして設定を微修正することで解決しました．</br>
+インストール後の再起動時，PC製造メーカーのロゴが表示されているタイミングでBios設定を立ち上げ（今回マシンの場合はF2連打），UEFI優先度のハードディスクUEFI起動と光学ドライブUEFI起動を「有効」に再設定します．さらにUEFI起動の順位でUbuntuとWindowsの順番も変更できるようになっていますので好みに合わせて再設定して下さい．設定が終わったら「変更を保存して再起動」します．
+
+ようやくUbuntuブートローダーでUbuntuとWindowsの起動を選択できるデュアルブート化に成功しました．（ライブUSBを用いれば最初からUEFIインストールに成功するのか？一度レガシーBios設定でインストールした後，UEFI起動インストールしたから成功したのか？はわかりません）</br>
+
+次は[Ubuntu 18.04 LTSのインストール直後にやっておきたいことまとめ](https://linuxfan.info/ubuntu-18-04-basic-settings)や[Ubuntu 18.04 LTSをインストールした直後に行う設定 & インストールするソフト](https://sicklylife.jp/ubuntu/1804/settings.html)や[Ubuntu 16.04LTS を Let's Note SZ6 にデュアルブートインストール](http://yang.amp.i.kyoto-u.ac.jp/~yyama/Ubuntu/version/Ubuntu16.04LTS_sz6.html)を参考に設定変更，必要なソフトインストールを行います．（特に[ファイアーウォールを有効にする](https://sicklylife.jp/ubuntu/1804/settings.html#gufw)とか”[他からの接続を禁止](http://yang.amp.i.kyoto-u.ac.jp/~yyama/Ubuntu/version/Ubuntu16.04LTS_sz6.html)"とか[セキュリティーソフトのインストール](https://ja.safetydetectives.com/blog/best-antivirus-for-linux-ja/)とか）Pythonインストールは後で行います．またLet's NoteへUbuntuをインストールするとでる固有の問題？は[Let's note SZ で Ubuntu](http://iranoan.my.coocan.jp/essay/pc/201609061.htm)を参考にして設定を微修正することで解決しました．</br>
 
 #### Ubuntuへのライブラリ追加
 
@@ -327,7 +347,29 @@ env PYTHON_CONFIGURE_OPTS="--enable-shared" pyenv insatll 3.8.1
 pyenv global 3.8.1
 ```
 
-と入力します．あとはpipでNumpy, Scipy, lmfit, Spyderをインストールしました．MKL Numpyのインストールはまだ試していませんが[[numpy で MKL を使う](https://qiita.com/f0o0o/items/69d9b766008091a6e698)]を読むと何とかなりそうな気がします．</br>
+と入力します．
+
+#### MKL Numpy, MKL Scipyのインストール
+
+MKL NumpyとMKL Scipyのインストールは[[NumPy/SciPy で Intel MKL を利用する (2019年11月版)](NumPy/SciPy で Intel MKL を利用する (2019年11月版))]を参照してインストールを試みましたが，MKL Numpyのみ成功しました．[Intel MKL](https://software.intel.com/en-us/mkl)からスタンドアローン版をダウンロードしてインストール，書かれている通りにすればMKL Numpyのインストールは成功します．Scipyについては書かれた通りでは失敗しました．エラーメッセージを見るとFortran Compilerが見つからないと怒られていました．そこで[[pythonでサポートベクターマシン実行環境の準備](http://azwoo.hatenablog.com/entry/2015/03/11/102440)]を参考にOSにgfortranをインストール．
+
+```
+sudo apt-get install gfortran
+```
+
+あとcythonをインストール．
+
+```
+pip install cython
+```
+
+その後，再度
+
+```
+pip install --no-binary :all: scipy
+```
+
+でScipyをビルド＋インストールで成功しました．ビルドには15分くらいかかりました．</br>
 
 #### wxPythonインストール
 
@@ -375,3 +417,4 @@ Ubuntu-desktopをインストールするだけでGUIが起動，Officeクロー
 </br>
 
 by K. Kobayashi@NIMS
+
