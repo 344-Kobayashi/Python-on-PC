@@ -1,6 +1,6 @@
 # ノートPCでPython+wxPython環境構築（ついでにMKL NumpyとMKL Scipy）
 
-2020-04-22
+2020-04-23
 
 ## はじめに
 
