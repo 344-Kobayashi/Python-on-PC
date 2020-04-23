@@ -369,7 +369,7 @@ pyenv global 3.8.1
 
 #### MKL Numpy, MKL Scipyのインストール
 
-MKL NumpyとMKL Scipyのインストールは[[NumPy/SciPy で Intel MKL を利用する (2019年11月版)](NumPy/SciPy で Intel MKL を利用する (2019年11月版))]を参照してインストールを試みましたが，MKL Numpyのみ成功しました．[Intel MKL](https://software.intel.com/en-us/mkl)からスタンドアローン版をダウンロードしてインストール，書かれている通りにすればMKL Numpyのインストールは成功します．Scipyについては書かれた通りでは失敗しました．エラーメッセージを見るとFortran Compilerが見つからないと怒られていました．そこで[[pythonでサポートベクターマシン実行環境の準備](http://azwoo.hatenablog.com/entry/2015/03/11/102440)]を参考にOSにgfortranをインストール．
+MKL NumpyとMKL Scipyのインストールは[[NumPy/SciPy で Intel MKL を利用する (2019年11月版)](https://qiita.com/osanshouo/items/7a729aabf65a70ad6762)]を参照してインストールを試みましたが，MKL Numpyのみ成功しました．[Intel MKL](https://software.intel.com/en-us/mkl)からスタンドアローン版をダウンロードしてインストール，書かれている通りにすればMKL Numpyのインストールは成功します．Scipyについては書かれた通りでは失敗しました．エラーメッセージを見るとFortran Compilerが見つからないと怒られていました．そこで[[pythonでサポートベクターマシン実行環境の準備](http://azwoo.hatenablog.com/entry/2015/03/11/102440)]を参考にOSにgfortranをインストール．
 
 ```
 sudo apt-get install gfortran
@@ -473,4 +473,6 @@ GUIを含む同一コードが3つのOS上で走ります．特定のOS用プロ
 </br>
 
 by K. Kobayashi@NIMS
+
+
 
