@@ -430,7 +430,7 @@ Ubuntu-desktopをインストールするだけでGUIが起動，Officeクロー
 
 #### テスト
 
-wxPythonのインストールが成功し，Matplotlib, Numpyなどもインストールされていれば[Mapplotlibの公式ページ](https://matplotlib.org/)に含まれる[Embedding in wx#4サンプルコード](https://matplotlib.org/3.1.3/gallery/user_interfaces/embedding_in_wx4_sgskip.html)を走らせることができます．
+wxPythonのインストールが成功し，Matplotlib, Numpyなどもインストールされていれば[Mapplotlibの公式ページ](https://matplotlib.org/)に含まれる[Embedding in wx#4サンプルコード](https://matplotlib.org/3.1.3/gallery/user_interfaces/embedding_in_wx4_sgskip.html)が走ります．
 
 Windows:
 
