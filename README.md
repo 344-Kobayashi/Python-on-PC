@@ -198,7 +198,7 @@ mkl_libs = mkl_rt
 pip install --no-binary :all: numpy
 ```
 
-(4) @rpathの追加．このままだとpythonでimport numpyとしたときに，Pythonが@rpath/libmkl_rt.dylibを見つけられないエラーが発生する．（[[Mac に MKL 版 numpy / scipy をインストールする](https://qiita.com/Ishotihadus/items/f7d82a1f3a3ca6900bf7)]を参照）この現象，.zshrcでLD_LIBRARY_PATHを指定しても解決できないらしい．そこでエラーが出た so ファイルに、強引に @rpathを追加する．パス名はインストールされている環境に合わせる．ターミナルで下記コマンドを実行（「[MacOSとHomebrewとpyenvで快適python環境を。](https://qiita.com/crankcube/items/15f06b32ec56736fc43a)」に記載されているパスにpyenvとPython3.8.1がインストールされている場合）
+(4) @rpathの追加．このままだとpythonでimport numpyとしたときに，Pythonが@rpath/libmkl_rt.dylibを見つけられなずエラーが発生する．（[[Mac に MKL 版 numpy / scipy をインストールする](https://qiita.com/Ishotihadus/items/f7d82a1f3a3ca6900bf7)]を参照）この現象，.zshrcでLD_LIBRARY_PATHを指定しても解決できないらしい．そこでエラーが出たso ファイルに、強引に @rpathを追加します．パス名はインストールされている環境に合わせてます．ターミナルで下記コマンドを実行（「[MacOSとHomebrewとpyenvで快適python環境を。](https://qiita.com/crankcube/items/15f06b32ec56736fc43a)」に記載されているパスにpyenvとPython3.8.1がインストールされている場合）
 
 ```
 install_name_tool -add_rpath /opt/intel/mkl/lib /usr/local/var/pyenv/versions/3.8.1/Python.framework/Versions/3.8/lib/python3.8/site-packages/numpy/core/_multiarray_umath.cpython-38-darwin.so
