@@ -402,7 +402,7 @@ Having additional script in your path....
 ```
 echo 'alias brew="env PATH=${PATH/\/home\/user name\/\/\.pyenv\/shims:/} brew"' >> ~/.bashrc
 ```
-
+user nameは各自のユーザー名です．
 端末ウィンドを閉じて，新しい端末ウィンドを開き
 
 ```
