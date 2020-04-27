@@ -77,7 +77,7 @@ pip install [モジュール名] --proxy [user:passwod@]proxy.server:port
 
 です．</br>
 
-**補足情報**：Windows用のPython用バイナリーモジュールは[Unofficial Windows Binaries for Python Extension Packages](https://www.lfd.uci.edu/~gohlke/pythonlibs/)ページから取得することもできます．このページには各モジュールの簡単な説明が付いていますので，どんなモジュールがあるのか？辞書代わりになります．MKLビルド版numpyのバイナリーもアップロードされていますので，これらも簡単にインストールできます．</br></br>
+**補足情報**：Windows用のPython用バイナリーモジュールは[Unofficial Windows Binaries for Python Extension Packages](https://www.lfd.uci.edu/~gohlke/pythonlibs/)ページから取得することもできます．このページには各モジュールの簡単な説明が付いていますので，どんなモジュールがあるのか？辞書代わりになります．MKLビルド版numpyとScipyのバイナリーもアップロードされていますので，これらも簡単にインストールできます．</br></br>
 
 
 
