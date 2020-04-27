@@ -12,7 +12,7 @@ PythonはWindows, macOS, Linuxに加えてiOS，アンドロイドでも利用�
 
 Pythonは複数のバージョンやインストールされたモジュール数が異なる環境を使うことが多いようです．本ページでは複数バージョンのPython環境の構築が目的の一つであるため，[pythonの本家本元サイト](http://www.python.org)からダウンロードする方法は用いていません．</br>
 
-あと数値演算を高速化するIntel Math Kernel Library (MKL)を組み込んだNumpy, Scipyのインストール法も記載しました．Windowsでは簡単，mac OSは超苦労，Linuxではやや苦労しました．</br></br>
+さらに数値演算を高速化するIntel Math Kernel Library (MKL)を組み込んだNumpy, Scipyのインストール法も記載しました．Windowsでは簡単，mac OSは超苦労，Linuxではやや苦労しました．</br></br>
 
 
 
