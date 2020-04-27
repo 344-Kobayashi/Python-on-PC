@@ -399,7 +399,7 @@ Having additional script in your path....
 ....
 ```
 
-との警告が現れた．[HomebrewでdoctorしたらWarning: "config" scripts exist outside your system or Homebrew directories.となった時の対応方法](https://qiita.com/ponsuke0531/items/7ede97f6abe6129802c1)によるとHomebrew管理外のconfigファイルがあると衝突するかもしれない，という警告．この警告が出たのはLHomebrewでpyenv + Pythonをインストールしたことが原因．これを解消するためHomebrewにエイリアスを追加しますが，.bash_profileに追加してもエイリアスが認識されなかったため.bashrcに環境設定を追加．
+との警告が現れた．[HomebrewでdoctorしたらWarning: "config" scripts exist outside your system or Homebrew directories.となった時の対応方法](https://qiita.com/ponsuke0531/items/7ede97f6abe6129802c1)によるとHomebrew管理外のconfigファイルがあると衝突するかもしれない，という警告．この警告が出たのはHomebrewインストール前にpyenv + Pythonをインストールしたことが原因．これを解消するためHomebrewにエイリアスを追加しますが，.bash_profileに追加してもエイリアスが認識されなかったため.bashrcに環境設定を追加．
 
 ```
 echo 'alias brew="env PATH=${PATH/\/home\/user name\/\/\.pyenv\/shims:/} brew"' >> ~/.bashrc
