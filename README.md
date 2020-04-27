@@ -2,6 +2,8 @@
 
 2020-04-27
 
+2020-04-27　公開2時間後に修正
+
 ## はじめに
 
 このページはWindows 8.1および10，macOS 10.15 (catalina), Linux (ubuntu 18.04)へのPythonと関連モジュールをインストールした経験メモです．**このページに記載された方法を試して何らかの不具合が生じても本ページ管理者は全く責任を負いません**．pythonやlinuxのインストールは**自己責任**で行って下さい．</br>
@@ -292,7 +294,7 @@ sudo apt-get install -y libgtk2.0-dev libgtk-3-dev libjpeg-dev libtiff-dev libsd
 
 #### Pyenvインストール
 
-UbuntuもOSにPythonが含まれています．したがってmac OSと同様に仮想環境下でPythonをインストールする必要があります．事前調査不足でLinuxBrewなるパッケージ管理プログラムが存在するのを知りませんでした．[[ubuntu 18.04 に pyenv をインストールする話](https://qiita.com/pdv/items/1107bcdca7fa43de673d)]を参照してpyenvをインストールしました．brewなしの直接インストールです．はじめにpyenvインストールに必要なLinuxライブラリをインストールします．
+UbuntuもOSにPythonが含まれています．したがってmac OSと同様に仮想環境下でPythonをインストールする必要があります．事前調査不足でLinuxBrewなるパッケージ管理プログラムが存在するのを知りませんでした．**(2020-04-27追記)：後からLinuxBrewをインストールし，先にインストールしたPythonのconfigureファイルを認識させる方法を下に追記しました．**[[ubuntu 18.04 に pyenv をインストールする話](https://qiita.com/pdv/items/1107bcdca7fa43de673d)]を参照してpyenvをインストールしました．brewなしの直接インストールです．はじめにpyenvインストールに必要なLinuxライブラリをインストールします．
 
 ```
 sudo apt install -y build-essential
@@ -350,6 +352,72 @@ pyenv update
 ```
 
 でpyenvのアップデートが可能になります．</br>
+
+**2020-04-27追記**
+
+[[LinuxbrewでUbuntu18.04のパッケージ管理](https://qiita.com/tikogr/items/e19c2a2cec41a8d4d85f)]を参考にしてLinuxbrewをインストールしました．
+
+必要なパッケージのインストール
+
+```
+sudo apt-get install build-essential curl file git
+```
+
+Linuxberwのインストール
+
+```
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
+```
+
+このコマンドについては[Homebrewホームページ](https://brew.sh/)を参照．
+
+下記コマンドで.bashrcに設定を追加
+
+```
+echo 'export PATH='/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin':"$PATH"' >> ~/.bashrc
+```
+
+これでエラーは出ませんでした．エラーが出る場合は[LinuxbrewでUbuntu18.04のパッケージ管理](https://qiita.com/tikogr/items/e19c2a2cec41a8d4d85f)の環境変数を参考に設定を追加すれば良いと思います．
+
+```
+source ~/.bashrc
+```
+
+で環境設定を反映させたのち，brewが正常に動いているか？確認するため
+
+```
+brew doctor
+```
+
+を実行すると
+
+```
+Warning: "config" scripts exist outside your system or Homebrew directories. './configure' scripts often look for *-config script to detemine if software packages are installed, and what additional flags to se when compiling and linking.
+
+Having additional script in your path....
+..following "config" scripts:
+....
+```
+
+との警告が現れた．[HomebrewでdoctorしたらWarning: "config" scripts exist outside your system or Homebrew directories.となった時の対応方法](https://qiita.com/ponsuke0531/items/7ede97f6abe6129802c1)によるとHomebrew管理外のconfigファイルがあると衝突するかもしれない，という警告．この警告が出たのはLHomebrewでpyenv + Pythonをインストールしたことが原因．これを解消するためHomebrewにエイリアスを追加しますが，.bash_profileに追加してもエイリアスが認識されなかったため.bashrcに環境設定を追加．
+
+```
+echo 'alias brew="env PATH=${PATH/\/home\/user name\/\/\.pyenv\/shims:/} brew"' >> ~/.bashrc
+```
+
+端末ウィンドを閉じて，新しい端末ウィンドを開き
+
+```
+brew doctor
+```
+
+を確認すると
+
+```
+Your system is readu to brew.
+```
+
+で警告は解消されます．これらはHomebrewをインストールしてからpyenv + Pythonをインストールすれば不要です．
 
 #### Pythonインストール
 
@@ -473,4 +541,3 @@ GUI制御を含む一つのコードが3つのOS上で走ります．特定のOS
 </br>
 
 by K. Kobayashi@NIMS
-
