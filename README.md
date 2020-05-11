@@ -1,6 +1,6 @@
 # ノートPCでPython+wxPython環境構築（ついでにMKL NumpyとMKL Scipy）
 
-2020-04-27（一部修正含む）
+2020-04-27（一部修正含む）</br>
 2020-05-17（CentOS 8でwxPythonのビルド＋インストールを追記）
 
 ## はじめに
@@ -523,16 +523,18 @@ sudo yum install libSM libSM-devel
 sudo yum install webkit2gtk3 webkit2gtk3-devel
 ```
 
-これだけではwxPythonのビルドに失敗します．さらに検索するとStack Overflowの"[How to properly install wxpython?](https://stackoverflow.com/questions/32284938/how-to-properly-install-wxpython)"にもうすこし必要なライブラリがあることが示されています．そこで更に下記ライブラリをインストールしました．
+これだけではwxPythonのビルドに失敗します．さらに検索するとStack Overflowの"[How to properly install wxpython?](https://stackoverflow.com/questions/32284938/how-to-properly-install-wxpython)"にもうすこし必要なライブラリがあることが示されています．さらにwxWidgets関連ライブラリも必要らしく思われました．そこで更に下記ライブラリをインストールしました．
 
 ```
 sudo yum install dpkg dpkg-devel
 sudo yum groupinstall 'Development Tools'
 sudo yum install libSm libSm-deve
 sudo yum install libXtst libXtst-devel
+sudo yum install wxGTK wxGTK-devel
+sudo yum install libestr libestr-devel
 ```
 
-makeをインストールしないとwxPythonビルド時にエラーがでます．念のためgcc類もインストールしました．
+makeをインストールしないとwxPythonビルド時にエラーがでます．念のためgcc類のインストール確認を行いました．
 
 ```
 sudo yum install gcc gcc-c++
