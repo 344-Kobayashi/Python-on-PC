@@ -526,10 +526,10 @@ sudo yum install webkit2gtk3 webkit2gtk3-devel
 これだけではwxPythonのビルドに失敗します．さらに検索するとStack Overflowの"[How to properly install wxpython?](https://stackoverflow.com/questions/32284938/how-to-properly-install-wxpython)"にもうすこし必要なライブラリがあることが示されています．そこで更に下記ライブラリをインストールしました．
 
 ```
-dudo dpkg dpkg-devel
+sudo yum install dpkg dpkg-devel
 sudo yum groupinstall 'Development Tools'
 sudo yum install libSm libSm-deve
-sudo yum install libxtst libxtst-devel
+sudo yum install libXtst libXtst-devel
 ```
 
 makeをインストールしないとwxPythonビルド時にエラーがでます．念のためgcc類もインストールしました．
