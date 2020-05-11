@@ -1,6 +1,7 @@
 # ノートPCでPython+wxPython環境構築（ついでにMKL NumpyとMKL Scipy）
 
 2020-04-27（一部修正含む）
+2020-05-17（CentOS 8でwxPythonのビルド＋インストールを追記）
 
 ## はじめに
 
@@ -493,6 +494,70 @@ spyder3&
 **おまけ**
 
 Ubuntu-desktopをインストールするだけでGUIが起動，OfficeクローンのLibreOffice，ウェブブラウザーのFireFox，メーラーのThunderBirdもプレインストールされています．接続できるプリンターやスキャナーが少ないことを除けば使いやすいOSと思います．</br></br>
+
+**2020-05-17追記**
+### CentOS 8でのwxPythonビルド＋インストール
+
+CentOS 8上でのwxPythonビルド＋インストールはMacBook Airにインストールした[VirtualBox](https://www.virtualbox.org/)で構築した仮想環境上で行いました．UbuntuはDebian系Linuxであるのに対し，CentOSはRed Hat Linux系であるためwxPythonビルド用ライブラリに少し違いがありました．今回はpyenv下のPython 3.8.2にwxPython4.1.0をインストールしました．CentOS 8はサーバー機能を導入していないWorkstationパッケージでインストールしました．
+
+まずEPELを利用可能にします．EPELについては[こちら](https://qiita.com/charon/items/f5732694515d174851b3)．
+
+`sudo yum install epel-release`
+
+必要なライブラリを追加インストールします．これらのライブラリについては[wxPythonページにある名前](https://www.wxpython.org/blog/2017-08-17-builds-for-linux-with-pip/index.html)から検索しました．検索は下記コマンドで行います．
+
+`yum search [ライブラリ名]`
+
+追加インストールしたライブラリは
+
+```
+sudo yum install gtk2 gtk2-devel
+sudo yum install gtk3 gtk3-devel
+sudo yum install libjpeg-turbo libjpeg-turbo-devel
+sudo yum install libtiff libtiff-devel
+sodo yum install SDL SDL-devel
+sudo yum install gstreamer1-plugins-base gstreamer1-plugins-base-devel
+suod yum install libnotify libnotify-devel
+sudo yum install freeglut freeglut-devel
+sudo yum install libSM libSM-devel
+sudo yum install webkit2gtk3 webkit2gtk3-devel
+```
+
+これだけではwxPythonのビルドに失敗します．さらに検索するとStack Overflowの"[How to properly install wxpython?](https://stackoverflow.com/questions/32284938/how-to-properly-install-wxpython)"にもうすこし必要なライブラリがあることが示されています．そこで更に下記ライブラリをインストールしました．
+
+```
+dudo dpkg dpkg-devel
+sudo yum groupinstall 'Development Tools'
+sudo yum install libSm libSm-deve
+sudo yum install libxtst libxtst-devel
+```
+
+makeをインストールしないとwxPythonビルド時にエラーがでます．念のためgcc類もインストールしました．
+
+```
+sudo yum install gcc gcc-c++
+sudo yum install make
+```
+
+その後，
+
+`env PYTHON_CONFIGURE_OPTS="--enable-shared" pyenv install 3.8.2`
+
+でPythonをインストール，このPythonをグローバル設定します．
+
+`pyenv global 3.8.2`
+
+最後にpipをアップグレード，NumpyをインストールしてからwxPythonをインストールします．
+
+```
+pip install --upgrade pip
+pip install numpy
+pip install wxPython
+```
+
+wxPythonのビルド＋インストールには約1時間かかりました．
+
+
 
 #### テスト
 
