@@ -516,6 +516,7 @@ sudo yum install gtk3 gtk3-devel
 sudo yum install libjpeg-turbo libjpeg-turbo-devel
 sudo yum install libtiff libtiff-devel
 sodo yum install SDL SDL-devel
+sudo yum install SDL2 SDL2-devel
 sudo yum install gstreamer1-plugins-base gstreamer1-plugins-base-devel
 suod yum install libnotify libnotify-devel
 sudo yum install freeglut freeglut-devel
@@ -527,7 +528,12 @@ sudo yum install webkit2gtk3 webkit2gtk3-devel
 
 ```
 sudo yum install dpkg dpkg-devel
-sudo yum groupinstall 'Development Tools'
+sudo yum groupinstall "Development Tools"
+sudo yum install libpng libpng-2
+sudo yum installlibtool
+sudo yum install SDL-static
+sudo yum install SDL2-static
+sudo yum install SDL_*
 sudo yum install libSm libSm-deve
 sudo yum install libXtst libXtst-devel
 sudo yum install wxGTK wxGTK-devel
