@@ -423,7 +423,7 @@ Your system is readu to brew.
 wxPythonページの[[Building wxPython for Linux via Pip](https://www.wxpython.org/blog/2017-08-17-builds-for-linux-with-pip/index.html#)]を確認するとpyenvでPythonをインストールするには"--enable-shared"オプションが必要とありますので，端末アプリウィンドウから
 
 ```
-env PYTHON_CONFIGURE_OPTS="--enable-shared" pyenv insatll 3.8.1
+env PYTHON_CONFIGURE_OPTS="--enable-shared" pyenv install 3.8.1
 ```
 
 と入力してPythonをインストールします（バージョン3.8.1の場合）．mac OSの場合と同様に普段使うPythonに設定するために
