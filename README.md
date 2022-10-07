@@ -341,7 +341,7 @@ pyenv -v
 で確認します．ついでに[[pyenv自身のバージョンを上げる](https://qiita.com/hatt0519/items/1c029659de4f169cd09a)]を参考にしてpyenvのupdate機能を追加するため
 
 ```
-git clone git://github.com/yyuu/pyenv-update.git ~/.pyenv/plugins/pyenv-update
+git clone https://github.com/pyenv/pyenv-update.git $(pyenv root)/plugins/pyenv-update
 ```
 
 を実行．インストールが終わると
